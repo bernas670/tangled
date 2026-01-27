@@ -1,0 +1,76 @@
+:root {
+  --bg-color: #fff;
+  --text-color: #000;
+  --cell-border: #ccc;
+  --highlight-bg: #e0f0ff;
+  --highlight-border: #3399ff;
+  --cursor-bg: #99ccff;
+
+  --cell-correct: #6aaa64;
+  --cell-misplaced: #c9b458;
+  --cell-absent: #787c7e;
+}
+
+body.dark {
+  --bg-color: #1e1e1e;
+  --text-color: #fff;
+  --cell-border: #555;
+  --highlight-bg: #333366;
+  --highlight-border: #77aaff;
+  --cursor-bg: #4466cc;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
+}
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  grid-template-rows: repeat(5, 60px);
+  gap: 6px;
+}
+
+.cell {
+  border: 2px solid var(--cell-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  user-select: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.cell.highlight {
+  background: var(--highlight-bg);
+  /* outline: 1px solid var(--highlight-border); */
+  border-color: var(--highlight-border);
+}
+
+.cell.cursor {
+  outline: 2px solid var(--highlight-border);
+  background: var(--cursor-bg);
+}
+
+.cell.correct {
+  background: var(--cell-correct);
+}
+.cell.misplaced {
+  background: var(--cell-misplaced);
+}
+.cell.absent {
+  background: var(--cell-absent);
+}
+
+#theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+}
