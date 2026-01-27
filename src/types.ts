@@ -10,6 +10,11 @@ export type Cell = {
   state: CellState;
 };
 
+export type LineKnowledge = {
+  [CellState.Misplaced]: Set<string>,
+  [CellState.Absent]: Set<string>,
+}
+
 export enum Mode {
   Row = "row",
   Col = "col",
@@ -22,5 +27,9 @@ export type State = {
     col: number,
   }
   grid: Cell[][];
+  knowledge: {
+    row: LineKnowledge[];
+    col: LineKnowledge[];
+  };
 };
 

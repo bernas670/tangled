@@ -1,4 +1,4 @@
-import { CellState, Mode, type Cell, type State } from "./types";
+import { CellState, Mode, type Cell, type LineKnowledge, type State } from "./types";
 const puzzle = [
   "MONEL", 
   "URINE", 
@@ -9,6 +9,11 @@ const puzzle = [
 
 const SIZE = 5;
 
+const emptyKnowledge = (): LineKnowledge => ({
+  misplaced: new Set<string>(),
+  absent: new Set<string>(),
+});
+
 const state: State = {
   mode: Mode.Row,
   cursor: { row: 0, col: 0 },
@@ -16,20 +21,105 @@ const state: State = {
     Array.from({ length: SIZE }, () => 
       ({ letter: "", state: CellState.Empty }))
   ),
+  knowledge: {
+    row: Array.from({ length: SIZE }, emptyKnowledge),
+    col: Array.from({ length: SIZE }, emptyKnowledge),
+  },
 };
 
-const grid = document.getElementById("grid");
+const board = document.getElementById("board");
 const cells: HTMLElement[][] = [];
+
 for (let r = 0; r < 5; r++) {
-  const row = [];
+  const row: HTMLElement[] = [];
   for (let c = 0; c < 5; c++) {
     const cell = document.createElement("div");
     cell.className = "cell";
-    grid?.appendChild(cell);
+    cell.style.gridRow = String(r + 1);
+    cell.style.gridColumn = String(c + 1);
+    board!.appendChild(cell);
     row.push(cell);
   }
   cells.push(row);
 }
+
+const rowKnowledgeEls = Array.from({ length: 5 }, () => {
+  const root = document.createElement("div");
+  root.className = "knowledge-row";
+
+  const misplacedRow = document.createElement("div");
+  misplacedRow.className = "misplaced-row";
+
+  const absentRow = document.createElement("div");
+  absentRow.className = "absent-row";
+
+  root.append(misplacedRow, absentRow);
+  board!.appendChild(root);
+
+  return { root, misplacedRow, absentRow };
+});
+
+const colKnowledgeEls = Array.from({ length: 5 }, () => {
+  const root = document.createElement("div");
+  root.className = "knowledge-col";
+
+  const misplacedCol = document.createElement("div");
+  misplacedCol.className = "misplaced-col";
+
+  const absentCol = document.createElement("div");
+  absentCol.className = "absent-col";
+
+  root.append(misplacedCol, absentCol);
+  board!.appendChild(root);
+
+  return { root, misplacedCol, absentCol };
+});
+
+const renderRowKnowledge = (state: State) => {
+  rowKnowledgeEls.forEach(({ misplacedRow, absentRow }, i) => {
+    misplacedRow.replaceChildren();
+    absentRow.replaceChildren();
+
+    const { misplaced, absent } = state.knowledge.row[i];
+
+    [...misplaced].sort().forEach(letter => {
+      const cell = document.createElement("div");
+      cell.className = "knowledge-cell misplaced";
+      cell.textContent = letter;
+      misplacedRow.appendChild(cell);
+    });
+
+    [...absent].sort().forEach(letter => {
+      const cell = document.createElement("div");
+      cell.className = "knowledge-cell absent";
+      cell.textContent = letter;
+      absentRow.appendChild(cell);
+    });
+  });
+};
+
+const renderColKnowledge = (state: State) => {
+  colKnowledgeEls.forEach(({ misplacedCol, absentCol }, i) => {
+    misplacedCol.replaceChildren();
+    absentCol.replaceChildren();
+
+    const { misplaced, absent } = state.knowledge.col[i];
+
+    [...misplaced].sort().forEach(letter => {
+      const cell = document.createElement("div");
+      cell.className = "knowledge-cell misplaced";
+      cell.textContent = letter;
+      misplacedCol.appendChild(cell);
+    });
+
+    [...absent].sort().forEach(letter => {
+      const cell = document.createElement("div");
+      cell.className = "knowledge-cell absent";
+      cell.textContent = letter;
+      absentCol.appendChild(cell);
+    });
+  });
+};
 
 function render() {
   for (let row = 0; row < SIZE; row++) {
@@ -50,7 +140,15 @@ function render() {
     : cells.map(r => r[col]);
   line.forEach(cell => cell.classList.add("highlight"));
   cells[row][col].classList.add("cursor");
+  // todo: add hightlight to knowledge
+  // rowKnowledgeEls[row].classList.add("highlight");
+  // colKnowledgeEls[col].classList.add("highlight");
+
+  renderColKnowledge(state);
+  renderRowKnowledge(state);
 }
+
+
 
 window.addEventListener("keydown", (e) => {
   if (e.key === " ") {
@@ -67,22 +165,26 @@ window.addEventListener("keydown", (e) => {
   }
 
   if (e.key === "ArrowLeft") {
-    state.cursor.col = Math.max(0, state.cursor.col - 1);
+    state.cursor.col = (state.cursor.col + 4) % 5;
   }
 
   if (e.key === "ArrowRight") {
-    state.cursor.col = Math.max(0, state.cursor.col + 1);
+    state.cursor.col = (state.cursor.col + 1) % 5;
   }
 
   if (e.key === "Backspace") {
+    // todo: revise backspace movement when
+    //  - previous letter is correct
+    //  - at the end or col/row
     const { row, col } = state.cursor;
     const cell = state.grid[row][col];
 
-    if (cell.state === CellState.Correct) return;
+    if (cell.state !== CellState.Correct) {
+      state.grid[state.cursor.row][state.cursor.col] = {
+        letter: "", state: CellState.Empty
+      };
+    }
 
-    state.grid[state.cursor.row][state.cursor.col] = {
-      letter: "", state: CellState.Empty
-    };
     if (state.mode === "row") {
         state.cursor.col = Math.max(state.cursor.col - 1, 0);
     } else {
@@ -112,83 +214,71 @@ window.addEventListener("keydown", (e) => {
   render();
 });
 
-function getAvailableLetters(solution: string[][], grid: Cell[][], row: number, col: number): Map<string, number> {
-  const counts = new Map<string, number>();
+const getCount = (letter: string, solution: string[], cells: Cell[]) => {
+  const total = solution.reduce((acc, l) => l === letter ? ++acc : acc, 0);
+  const used = cells.reduce((acc, cell) => cell.letter === letter && cell.state === CellState.Correct ? ++acc : acc, 0);
+  return total - used;
+};
 
-  // count cells in solution
-  solution[row].forEach(letter => counts.set(letter, (counts.get(letter) ?? 0) + 1));
-  solution.forEach((r, i) => {
-    if (i === row) return;
-    const letter = r[col];
-    counts.set(letter, (counts.get(letter) ?? 0) + 1)
-  });
 
-  // remove correct cells in grid
-  grid[row].forEach(({letter, state}, i) => {
-    if (state === CellState.Correct) counts.set(letter, counts.get(letter)! - 1);
-  });
-  grid.forEach((r, i) => {
-    if (i === row) return;
-    const {letter, state} = r[col];
-    if (state === CellState.Correct) counts.set(letter, counts.get(letter)! - 1);
-  });
+const handleSubmission = (line: Cell[], solution: string[][], state: State) => {
+  const word = line.map(cell => cell.letter).join("");
 
-  return counts;
-}
+  if (word.length < SIZE) return;
 
-function checkWord(cells: Cell[], solution: string[][], {mode, cursor: {row, col}, grid}: State) {
-  const availability = getAvailableLetters(solution, grid, row, col);
+  const { mode, cursor: { row, col } } = state;
 
-  const result: CellState[] = Array(SIZE).fill(CellState.Absent);
+  // get correct letters
+  line.forEach((cell, i) => {
+    const r = mode === Mode.Row ? row : i;
+    const c = mode === Mode.Row ? i : col;
 
-  // get correct
-  cells.forEach(({letter}, i) => {
     const correct = mode === Mode.Row
       ? solution[row][i]
       : solution[i][col];
-    if (letter === correct) {
-      result[i] = CellState.Correct;
-      availability.set(letter, availability.get(letter)! - 1);
+    if (cell.letter === correct) {
+      cell.state = CellState.Correct;
     }
+
+    state.knowledge.col[c].misplaced.delete(cell.letter)
+    state.knowledge.row[r].misplaced.delete(cell.letter)
   });
 
   // get misplaced
-  cells.forEach(({letter}, i) => {
-    if (result[i] !== CellState.Absent) return;
-    
-    const remaining = availability.get(letter) ?? 0;
-    if (remaining > 0) {
-      result[i] = CellState.Misplaced;
-      availability.set(letter, remaining - 1);
+  line.forEach((cell, i) => {
+    const r = mode === Mode.Row ? row : i;
+    const c = mode === Mode.Row ? i : col;
+
+    if (cell.state === CellState.Correct) {
+      state.knowledge.col[c].misplaced.delete(cell.letter)
+      state.knowledge.row[r].misplaced.delete(cell.letter)
+      return;
+    }
+
+    const letters = [...solution[r], ...solution.map(r => r[c])];
+    const cells = [...state.grid[r], ...state.grid.map(r => r[c])];
+    const count = getCount(cell.letter, letters, cells);
+
+    if (count > 0) {
+      cell.state = CellState.Misplaced;
+      state.knowledge.col[c].misplaced.add(cell.letter);
+      state.knowledge.row[r].misplaced.add(cell.letter);
+    } else {
+      cell.state = CellState.Absent;
+      state.knowledge.col[c].absent.add(cell.letter);
+      state.knowledge.row[r].absent.add(cell.letter);
     }
   });
-
-  return result;
-}
+};
 
 function handleSubmit() {
   const { mode, grid, cursor: { row, col } } = state;
   const line = mode === "row"
     ? grid[row]
     : grid.map(r => r[col]);
-  const word = line.map(cell => cell.letter);
-  if (word.length !== 5) {
-    console.error("Word must be 5 letters");
-    return;
-  }
 
-  const solution = mode === "row"
-    ? puzzle[row]
-    : puzzle.map(r => r[col]).join("");
-  
-  console.log(`Submit ${mode}: ${word} / ${solution}`);
-  const result = checkWord(line, puzzle, state);
-  console.log(result);
-
-  result.forEach((cellState, i) => {
-    const cell = mode === "row" ? state.grid[row][i] : state.grid[i][col];
-    cell.state = cellState;
-  })
+  handleSubmission(line, puzzle, state);
+  console.info("state", state);
 }
 
 render();
