@@ -1,7 +1,11 @@
 export enum CellState {
   Empty = "empty",
   Correct = "correct",
-  Misplaced = "misplaced",
+
+  MisplacedBoth = "misplaced-both",
+  MisplacedRow = "misplaced-row",
+  MisplacedCol = "misplaced-col",
+
   Absent = "absent",
 };
 
@@ -11,8 +15,8 @@ export type Cell = {
 };
 
 export type LineKnowledge = {
-  [CellState.Misplaced]: Set<string>,
-  [CellState.Absent]: Set<string>,
+  misplaced: Set<string>,
+  absent: Set<string>,
 }
 
 export enum Mode {

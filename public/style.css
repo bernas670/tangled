@@ -7,8 +7,10 @@
   --cursor-bg: #99ccff;
 
   --cell-correct: #6aaa64;
-  --cell-misplaced: #c9b458;
   --cell-absent: #787c7e;
+  --cell-misplaced-both: #c9b458;
+  --cell-misplaced-row: blue;
+  --cell-misplaced-col: pink;
 }
 
 body.dark {
@@ -66,7 +68,6 @@ body {
   align-items: center;
 }
 
-
 .knowledge-cell {
   width: 22px;
   height: 22px;
@@ -79,16 +80,6 @@ body {
   user-select: none;
 }
 
-.knowledge-cell.misplaced {
-  background: var(--cell-misplaced);
-}
-
-.knowledge-cell.absent {
-  background: var(--cell-absent);
-}
-
-
-
 .cell {
   border: 2px solid var(--cell-border);
   display: flex;
@@ -100,24 +91,30 @@ body {
   transition: background 0.2s, border-color 0.2s;
 }
 
-.cell.highlight {
-  background: var(--highlight-bg);
-  /* outline: 1px solid var(--highlight-border); */
-  border-color: var(--highlight-border);
-}
-
 .cell.cursor {
   outline: 2px solid var(--highlight-border);
   background: var(--cursor-bg);
 }
 
-.cell.correct {
+.highlight {
+  background: var(--highlight-bg);
+  /* outline: 1px solid var(--highlight-border); */
+  border-color: var(--highlight-border);
+}
+
+.correct {
   background: var(--cell-correct);
 }
-.cell.misplaced {
-  background: var(--cell-misplaced);
+.misplaced-both {
+  background: var(--cell-misplaced-both);
 }
-.cell.absent {
+.misplaced-row {
+  background: var(--cell-misplaced-row);
+}
+.misplaced-col {
+  background: var(--cell-misplaced-col);
+}
+.absent {
   background: var(--cell-absent);
 }
 

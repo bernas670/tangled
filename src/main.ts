@@ -214,13 +214,6 @@ window.addEventListener("keydown", (e) => {
   render();
 });
 
-const getCount = (letter: string, solution: string[], cells: Cell[]) => {
-  const total = solution.reduce((acc, l) => l === letter ? ++acc : acc, 0);
-  const used = cells.reduce((acc, cell) => cell.letter === letter && cell.state === CellState.Correct ? ++acc : acc, 0);
-  return total - used;
-};
-
-
 const handleSubmission = (line: Cell[], solution: string[][], state: State) => {
   const word = line.map(cell => cell.letter).join("");
 
@@ -244,31 +237,43 @@ const handleSubmission = (line: Cell[], solution: string[][], state: State) => {
     state.knowledge.row[r].misplaced.delete(cell.letter)
   });
 
-  // get misplaced
   line.forEach((cell, i) => {
     const r = mode === Mode.Row ? row : i;
     const c = mode === Mode.Row ? i : col;
 
-    if (cell.state === CellState.Correct) {
-      state.knowledge.col[c].misplaced.delete(cell.letter)
-      state.knowledge.row[r].misplaced.delete(cell.letter)
-      return;
-    }
+    if (cell.state === CellState.Correct) return;
 
-    const letters = [...solution[r], ...solution.map(r => r[c])];
-    const cells = [...state.grid[r], ...state.grid.map(r => r[c])];
-    const count = getCount(cell.letter, letters, cells);
+    // clear previous knowledge
+    state.knowledge.row[r].misplaced.delete(cell.letter);
+    state.knowledge.row[r].absent.delete(cell.letter);
+    state.knowledge.col[c].misplaced.delete(cell.letter);
+    state.knowledge.col[c].absent.delete(cell.letter);
 
-    if (count > 0) {
-      cell.state = CellState.Misplaced;
-      state.knowledge.col[c].misplaced.add(cell.letter);
+    const inRow = puzzle[r].includes(cell.letter);
+    const inCol = puzzle.some(row => row[c] === cell.letter);
+
+    if (inRow && inCol) {
+      cell.state = CellState.MisplacedBoth;
       state.knowledge.row[r].misplaced.add(cell.letter);
-    } else {
-      cell.state = CellState.Absent;
+      state.knowledge.col[c].misplaced.add(cell.letter);
+    }
+    else if (inRow) {
+      cell.state = CellState.MisplacedRow;
+      state.knowledge.row[r].misplaced.add(cell.letter);
       state.knowledge.col[c].absent.add(cell.letter);
+    }
+    else if (inCol) {
+      cell.state = CellState.MisplacedCol;
+      state.knowledge.col[c].misplaced.add(cell.letter);
       state.knowledge.row[r].absent.add(cell.letter);
     }
+    else {
+      cell.state = CellState.Absent;
+      state.knowledge.row[r].absent.add(cell.letter);
+      state.knowledge.col[c].absent.add(cell.letter);
+    }
   });
+
 };
 
 function handleSubmit() {
