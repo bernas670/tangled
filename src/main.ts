@@ -27,6 +27,14 @@ const state: State = {
   },
 };
 
+let words: Set<string> = new Set();
+fetch("/tangled/words.txt")
+  .then(response => response.text())
+  .then(text => {
+    words = new Set(text.split("\n").map(word => word.trim().toUpperCase()));
+    console.log("loaded words", words)
+  });
+
 const board = document.getElementById("board");
 const cells: HTMLElement[][] = [];
 
@@ -45,78 +53,58 @@ for (let r = 0; r < 5; r++) {
 
 const rowKnowledgeEls = Array.from({ length: 5 }, () => {
   const root = document.createElement("div");
-  root.className = "knowledge-row";
-
-  const misplacedRow = document.createElement("div");
-  misplacedRow.className = "misplaced-row";
-
-  const absentRow = document.createElement("div");
-  absentRow.className = "absent-row";
-
-  root.append(misplacedRow, absentRow);
+  root.className = "knowledge row";
   board!.appendChild(root);
-
-  return { root, misplacedRow, absentRow };
+  return root;
 });
 
 const colKnowledgeEls = Array.from({ length: 5 }, () => {
   const root = document.createElement("div");
-  root.className = "knowledge-col";
-
-  const misplacedCol = document.createElement("div");
-  misplacedCol.className = "misplaced-col";
-
-  const absentCol = document.createElement("div");
-  absentCol.className = "absent-col";
-
-  root.append(misplacedCol, absentCol);
+  root.className = "knowledge col";
   board!.appendChild(root);
-
-  return { root, misplacedCol, absentCol };
+  return root;
 });
 
 const renderRowKnowledge = (state: State) => {
-  rowKnowledgeEls.forEach(({ misplacedRow, absentRow }, i) => {
-    misplacedRow.replaceChildren();
-    absentRow.replaceChildren();
+  rowKnowledgeEls.forEach((elem, i) => {
+    elem.replaceChildren();
 
     const { misplaced, absent } = state.knowledge.row[i];
 
     [...misplaced].sort().forEach(letter => {
       const cell = document.createElement("div");
-      cell.className = "knowledge-cell misplaced";
+      cell.className = "knowledge-cell misplaced-row";
       cell.textContent = letter;
-      misplacedRow.appendChild(cell);
+      elem.appendChild(cell);
     });
 
     [...absent].sort().forEach(letter => {
       const cell = document.createElement("div");
       cell.className = "knowledge-cell absent";
       cell.textContent = letter;
-      absentRow.appendChild(cell);
+      elem.appendChild(cell);
     });
   });
 };
 
 const renderColKnowledge = (state: State) => {
-  colKnowledgeEls.forEach(({ misplacedCol, absentCol }, i) => {
-    misplacedCol.replaceChildren();
-    absentCol.replaceChildren();
+  colKnowledgeEls.forEach((elem, i) => {
+    elem.replaceChildren();
 
     const { misplaced, absent } = state.knowledge.col[i];
 
     [...misplaced].sort().forEach(letter => {
       const cell = document.createElement("div");
-      cell.className = "knowledge-cell misplaced";
+      cell.className = "knowledge-cell misplaced-col";
       cell.textContent = letter;
-      misplacedCol.appendChild(cell);
+      elem.appendChild(cell);
     });
 
     [...absent].sort().forEach(letter => {
       const cell = document.createElement("div");
       cell.className = "knowledge-cell absent";
       cell.textContent = letter;
-      absentCol.appendChild(cell);
+      elem.appendChild(cell);
     });
   });
 };
@@ -217,7 +205,16 @@ window.addEventListener("keydown", (e) => {
 const handleSubmission = (line: Cell[], solution: string[][], state: State) => {
   const word = line.map(cell => cell.letter).join("");
 
-  if (word.length < SIZE) return;
+  if (word.length < SIZE) {
+    console.error(`"${word}" is not ${SIZE} characters long!`)
+    return;
+  }
+  
+  if (!words.has(word)) {
+    console.error(`"${word}" is not a valid word!`)
+    return;
+  }
+
 
   const { mode, cursor: { row, col } } = state;
 

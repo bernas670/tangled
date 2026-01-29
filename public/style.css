@@ -8,9 +8,9 @@
 
   --cell-correct: #6aaa64;
   --cell-absent: #787c7e;
-  --cell-misplaced-both: #c9b458;
-  --cell-misplaced-row: blue;
-  --cell-misplaced-col: pink;
+  --cell-misplaced-both: #c9b458;    /* golden yellow */
+  --cell-misplaced-row: #3fa9a9;     /* teal / cyan */
+  --cell-misplaced-col: #d46b9b;     /* soft magenta / pink */
 }
 
 body.dark {
@@ -20,6 +20,10 @@ body.dark {
   --highlight-bg: #333366;
   --highlight-border: #77aaff;
   --cursor-bg: #4466cc;
+
+  --cell-misplaced-both: #d6c55a;
+  --cell-misplaced-row: #4fc2c2;
+  --cell-misplaced-col: #e48ab2;
 }
 
 body {
@@ -39,33 +43,20 @@ body {
   gap: 6px;
 }
 
-.knowledge-row {
+.knowledge {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
   border: 2px dashed var(--cell-border);
-  display: grid;
-  grid-template-rows: 1fr 1fr;
   gap: 2px;
   padding: 1px;
-}
-.knowledge-row .misplaced-row,
-.knowledge-row .absent-row {
-  display: flex;
-  gap: 2px;
-  align-items: center;
-}
 
-.knowledge-col {
-  border: 2px dashed var(--cell-border);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  padding: 1px;
-}
-.knowledge-col .misplaced-col,
-.knowledge-col .absent-col {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  align-items: center;
+  &.row {
+    flex-direction: column;
+  }
+  &.col {
+    flex-direction: row;
+  }
 }
 
 .knowledge-cell {
@@ -91,9 +82,10 @@ body {
   transition: background 0.2s, border-color 0.2s;
 }
 
-.cell.cursor {
+.cursor {
   outline: 2px solid var(--highlight-border);
-  background: var(--cursor-bg);
+  border-color: var(--highlight-bg)
+  /* background: var(--cursor-bg); */
 }
 
 .highlight {
