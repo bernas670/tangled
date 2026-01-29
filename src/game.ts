@@ -1,0 +1,96 @@
+import { CellState, Mode, type Cell, type State } from "./types";
+import { SIZE } from "./constants";
+import { getPuzzle, isValidWord } from "./puzzle";
+
+const getLineCoordinates = (
+  mode: Mode,
+  cursorRow: number,
+  cursorCol: number,
+  index: number
+): { row: number; col: number } => ({
+  row: mode === Mode.Row ? cursorRow : index,
+  col: mode === Mode.Row ? index : cursorCol,
+});
+
+const clearKnowledge = (state: State, row: number, col: number, letter: string): void => {
+  state.knowledge.row[row].misplaced.delete(letter);
+  state.knowledge.row[row].absent.delete(letter);
+  state.knowledge.col[col].misplaced.delete(letter);
+  state.knowledge.col[col].absent.delete(letter);
+};
+
+const updateCellState = (
+  state: State,
+  cell: Cell,
+  row: number,
+  col: number
+): void => {
+  const puzzle = getPuzzle();
+  const inRow = puzzle[row].includes(cell.letter);
+  const inCol = puzzle.some((puzzleRow) => puzzleRow[col] === cell.letter);
+
+  if (inRow && inCol) {
+    cell.state = CellState.MisplacedBoth;
+    state.knowledge.row[row].misplaced.add(cell.letter);
+    state.knowledge.col[col].misplaced.add(cell.letter);
+  } else if (inRow) {
+    cell.state = CellState.MisplacedRow;
+    state.knowledge.row[row].misplaced.add(cell.letter);
+    state.knowledge.col[col].absent.add(cell.letter);
+  } else if (inCol) {
+    cell.state = CellState.MisplacedCol;
+    state.knowledge.col[col].misplaced.add(cell.letter);
+    state.knowledge.row[row].absent.add(cell.letter);
+  } else {
+    cell.state = CellState.Absent;
+    state.knowledge.row[row].absent.add(cell.letter);
+    state.knowledge.col[col].absent.add(cell.letter);
+  }
+};
+
+export const submitLine = (state: State): boolean => {
+  const { mode, grid, cursor } = state;
+  const line =
+    mode === Mode.Row
+      ? grid[cursor.row]
+      : grid.map((row) => row[cursor.col]);
+
+  const word = line.map((cell) => cell.letter).join("");
+
+  if (word.length < SIZE) {
+    console.error(`"${word}" is not ${SIZE} characters long!`);
+    return false;
+  }
+
+  if (!isValidWord(word)) {
+    console.error(`"${word}" is not a valid word!`);
+    return false;
+  }
+
+  const puzzle = getPuzzle();
+
+  // First pass: mark correct letters and clear their misplaced status
+  line.forEach((cell, index) => {
+    const { row, col } = getLineCoordinates(mode, cursor.row, cursor.col, index);
+    const correctLetter =
+      mode === Mode.Row ? puzzle[cursor.row][index] : puzzle[index][cursor.col];
+
+    if (cell.letter === correctLetter) {
+      cell.state = CellState.Correct;
+    }
+
+    state.knowledge.col[col].misplaced.delete(cell.letter);
+    state.knowledge.row[row].misplaced.delete(cell.letter);
+  });
+
+  // Second pass: update non-correct cells
+  line.forEach((cell, index) => {
+    if (cell.state === CellState.Correct) return;
+
+    const { row, col } = getLineCoordinates(mode, cursor.row, cursor.col, index);
+    clearKnowledge(state, row, col, cell.letter);
+    updateCellState(state, cell, row, col);
+  });
+
+  return true;
+};
