@@ -26,8 +26,16 @@ const updateCellState = (
   col: number
 ): void => {
   const puzzle = getPuzzle();
-  const inRow = puzzle[row].includes(cell.letter);
-  const inCol = puzzle.some((puzzleRow) => puzzleRow[col] === cell.letter);
+
+  // Check if letter exists in an unfilled position in this row
+  const inRow = puzzle[row].some(
+    (letter, i) => letter === cell.letter && state.grid[row][i].state !== CellState.Correct
+  );
+
+  // Check if letter exists in an unfilled position in this column
+  const inCol = puzzle.some(
+    (puzzleRow, i) => puzzleRow[col] === cell.letter && state.grid[i][col].state !== CellState.Correct
+  );
 
   if (inRow && inCol) {
     cell.state = CellState.MisplacedBoth;
