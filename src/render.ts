@@ -1,28 +1,26 @@
 import { Mode, type LineKnowledge, type State } from "./types";
 import { SIZE } from "./constants";
-import { cells, rowKnowledgeElements, colKnowledgeElements } from "./dom";
+import {
+  cells,
+  rowMisplacedElements,
+  rowAbsentElements,
+  colMisplacedElements,
+  colAbsentElements,
+} from "./dom";
 
-type KnowledgeStyle = "misplaced-row" | "misplaced-col";
-
-const renderKnowledge = (
+const renderKnowledgeSet = (
   elements: HTMLElement[],
   knowledgeList: LineKnowledge[],
-  misplacedStyle: KnowledgeStyle
+  type: "misplaced" | "absent",
+  cellStyle: string
 ): void => {
   elements.forEach((element, index) => {
     element.replaceChildren();
-    const { misplaced, absent } = knowledgeList[index];
+    const letters = knowledgeList[index][type];
 
-    [...misplaced].sort().forEach((letter) => {
+    [...letters].sort().forEach((letter) => {
       const cell = document.createElement("div");
-      cell.className = `knowledge-cell ${misplacedStyle}`;
-      cell.textContent = letter;
-      element.appendChild(cell);
-    });
-
-    [...absent].sort().forEach((letter) => {
-      const cell = document.createElement("div");
-      cell.className = "knowledge-cell absent";
+      cell.className = `knowledge-cell ${cellStyle}`;
       cell.textContent = letter;
       element.appendChild(cell);
     });
@@ -56,6 +54,8 @@ const renderHighlights = (state: State): void => {
 export const render = (state: State): void => {
   renderGrid(state);
   renderHighlights(state);
-  renderKnowledge(rowKnowledgeElements, state.knowledge.row, "misplaced-row");
-  renderKnowledge(colKnowledgeElements, state.knowledge.col, "misplaced-col");
+  renderKnowledgeSet(rowMisplacedElements, state.knowledge.row, "misplaced", "misplaced-row");
+  renderKnowledgeSet(rowAbsentElements, state.knowledge.row, "absent", "absent");
+  renderKnowledgeSet(colMisplacedElements, state.knowledge.col, "misplaced", "misplaced-col");
+  renderKnowledgeSet(colAbsentElements, state.knowledge.col, "absent", "absent");
 };
