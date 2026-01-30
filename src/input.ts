@@ -4,6 +4,38 @@ import { submitLine } from "./game";
 import { render } from "./render";
 import { cells } from "./dom";
 
+const getLineCells = (state: State): HTMLElement[] =>
+  state.mode === Mode.Row
+    ? cells[state.cursor.row]
+    : cells.map((row) => row[state.cursor.col]);
+
+const shakeInvalidWord = (state: State): void => {
+  const lineCells = getLineCells(state);
+  const isRow = state.mode === Mode.Row;
+
+  const keyframes = isRow
+    ? [
+        { transform: "translateX(0)" },
+        { transform: "translateX(-6px)" },
+        { transform: "translateX(6px)" },
+        { transform: "translateX(-4px)" },
+        { transform: "translateX(4px)" },
+        { transform: "translateX(0)" },
+      ]
+    : [
+        { transform: "translateY(0)" },
+        { transform: "translateY(-6px)" },
+        { transform: "translateY(6px)" },
+        { transform: "translateY(-4px)" },
+        { transform: "translateY(4px)" },
+        { transform: "translateY(0)" },
+      ];
+
+  lineCells.forEach((cell) => {
+    cell.animate(keyframes, { duration: 400, easing: "ease-in-out" });
+  });
+};
+
 const toggleMode = (state: State): void => {
   state.mode = state.mode === Mode.Row ? Mode.Col : Mode.Row;
 };
@@ -78,9 +110,13 @@ export const setupInputHandlers = (state: State): void => {
       case "Backspace":
         handleBackspace(state);
         break;
-      case "Enter":
-        submitLine(state);
+      case "Enter": {
+        const result = submitLine(state);
+        if (!result.success && result.error === "invalid") {
+          shakeInvalidWord(state);
+        }
         break;
+      }
       default:
         if (/^[a-zA-Z]$/.test(event.key)) {
           handleLetterInput(state, event.key);

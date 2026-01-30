@@ -56,7 +56,10 @@ const updateCellState = (
   }
 };
 
-export const submitLine = (state: State): boolean => {
+export type SubmitError = "incomplete" | "invalid";
+export type SubmitResult = { success: true } | { success: false; error: SubmitError };
+
+export const submitLine = (state: State): SubmitResult => {
   const { mode, grid, cursor } = state;
   const line =
     mode === Mode.Row
@@ -66,13 +69,11 @@ export const submitLine = (state: State): boolean => {
   const word = line.map((cell) => cell.letter).join("");
 
   if (word.length < SIZE) {
-    console.error(`"${word}" is not ${SIZE} characters long!`);
-    return false;
+    return { success: false, error: "incomplete" };
   }
 
   if (!isValidWord(word)) {
-    console.error(`"${word}" is not a valid word!`);
-    return false;
+    return { success: false, error: "invalid" };
   }
 
   const puzzle = getPuzzle();
@@ -100,5 +101,5 @@ export const submitLine = (state: State): boolean => {
     updateCellState(state, cell, row, col);
   });
 
-  return true;
+  return { success: true };
 };
