@@ -121,7 +121,7 @@ export const setupInputHandlers = (state: State): void => {
         break;
       case "Enter": {
         const result = submitLine(state);
-        if (!result.success && result.error === "invalid") {
+        if (!result.success) {
           shakeInvalidWord(state);
         }
         break;
@@ -184,7 +184,7 @@ export const setupInputHandlers = (state: State): void => {
         break;
       case "ENTER": {
         const result = submitLine(state);
-        if (!result.success && result.error === "invalid") {
+        if (!result.success) {
           shakeInvalidWord(state);
         }
         break;
