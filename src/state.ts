@@ -19,3 +19,11 @@ export const createInitialState = (): State => ({
 });
 
 export const state: State = createInitialState();
+
+export const resetState = (s: State): void => {
+  const fresh = createInitialState();
+  s.mode = fresh.mode;
+  s.cursor = fresh.cursor;
+  s.grid = fresh.grid;
+  s.knowledge = fresh.knowledge;
+};
