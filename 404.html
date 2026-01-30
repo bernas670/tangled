@@ -4,9 +4,12 @@
     <meta charset="utf-8" />
     <title>Redirecting...</title>
     <script>
-      // Store the path and redirect to index
-      sessionStorage.setItem("redirectPath", window.location.pathname);
-      window.location.replace("/tangled/");
+      const match = window.location.pathname.match(/^\/tangled\/puzzles\/(\d+)$/);
+      if (match) {
+        window.location.replace("/tangled/?puzzle=" + match[1]);
+      } else {
+        window.location.replace("/tangled/");
+      }
     </script>
   </head>
   <body></body>
