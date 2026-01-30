@@ -1,12 +1,13 @@
 words: https://gist.github.com/dracos/dd0668f281e685bad51479e5acaadb93
 
 # TODOs
- - handle mouse input
  - highlight knowledge row/col ?
  - revise backspace logic
  - add legend for colors
  - add instructions/rules
  - add try counters to each row/col and total
- - center grid on the screen, while there is space
- - make it mobile friendly
+ - mobile version:
+    - light/dark mode is taking up useful space
+    - knowledge cells are too large and only stay in one row or col
+    - add feedback to keyboard (change color on click/vibrate if supported maybe)
 

@@ -1,6 +1,7 @@
 import { SIZE } from "./constants";
 
 const board = document.getElementById("board")!;
+const keyboardContainer = document.getElementById("keyboard")!;
 
 const createGridCells = (): HTMLElement[][] => {
   const cells: HTMLElement[][] = [];
@@ -62,3 +63,48 @@ export const colAbsentElements = createKnowledgeElements({
   gridRow: () => "7",
   gridColumn: (i) => String(i + 2),
 });
+
+// On-screen keyboard
+const KEYBOARD_ROWS = [
+  ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+  ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+  ["MODE", "Z", "X", "C", "V", "B", "N", "M", "⌫"],
+  ["ENTER"],
+];
+
+const createKeyboard = (): Map<string, HTMLElement> => {
+  const keyElements = new Map<string, HTMLElement>();
+
+  KEYBOARD_ROWS.forEach((row) => {
+    const rowElement = document.createElement("div");
+    rowElement.className = "keyboard-row";
+
+    row.forEach((key) => {
+      const keyElement = document.createElement("button");
+      keyElement.className = "keyboard-key";
+      keyElement.dataset.key = key;
+
+      if (key === "MODE") {
+        keyElement.classList.add("wide", "mode-toggle", "row-mode");
+      } else if (key === "⌫") {
+        keyElement.textContent = "⌫";
+        keyElement.classList.add("wide");
+      } else if (key === "ENTER") {
+        keyElement.textContent = "ENTER";
+        keyElement.style.maxWidth = "100%";
+        keyElement.style.flex = "1";
+      } else {
+        keyElement.textContent = key;
+      }
+
+      keyElements.set(key, keyElement);
+      rowElement.appendChild(keyElement);
+    });
+
+    keyboardContainer.appendChild(rowElement);
+  });
+
+  return keyElements;
+};
+
+export const keyboardKeys = createKeyboard();

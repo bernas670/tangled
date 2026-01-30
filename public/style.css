@@ -26,14 +26,35 @@ body.dark {
   --cell-misplaced-col: #e48ab2;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  touch-action: manipulation;
+}
+
 body {
   font-family: system-ui, sans-serif;
   display: flex;
   justify-content: center;
-  margin-top: 40px;
+  margin: 0;
+  padding-top: 40px;
   background: var(--bg-color);
   color: var(--text-color);
   transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 8px;
 }
 
 #board {
@@ -82,6 +103,7 @@ body {
   font-weight: bold;
   font-size: 14px;
   user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .cell {
@@ -93,6 +115,8 @@ body {
   font-weight: bold;
   user-select: none;
   transition: background 0.2s, border-color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .cursor {
@@ -127,5 +151,131 @@ body {
   position: fixed;
   top: 16px;
   right: 16px;
+  z-index: 100;
+}
+
+/* On-screen keyboard */
+#keyboard {
+  display: none;
+  width: 100%;
+  max-width: 500px;
+  padding: 0 4px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+
+.keyboard-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 58px;
+  min-width: 30px;
+  flex: 1;
+  max-width: 44px;
+  background: var(--cell-border);
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+  color: var(--text-color);
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.keyboard-key:active {
+  opacity: 0.7;
+}
+
+.keyboard-key.wide {
+  flex: 1.5;
+  max-width: 66px;
+  font-size: 12px;
+}
+
+.keyboard-key.mode-toggle {
+  background: var(--highlight-border);
+  color: white;
+}
+
+.keyboard-key.mode-toggle.row-mode::after {
+  content: "ROW";
+}
+
+.keyboard-key.mode-toggle.col-mode::after {
+  content: "COL";
+}
+
+/* Mobile responsive styles */
+@media (max-width: 600px) {
+  body {
+    padding-top: 50px;
+  }
+
+  #keyboard {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-color);
+    padding: 8px 4px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    max-width: none;
+  }
+
+  #game-container {
+    padding-bottom: 220px;
+  }
+
+  #board {
+    --cell-size: min(calc((100vw - 16px - 24px) / 7 * 0.7), 50px);
+    --knowledge-size: min(calc((100vw - 16px - 24px) / 7 * 1.5), 100px);
+    grid-template-columns: var(--knowledge-size) repeat(5, var(--cell-size)) var(--knowledge-size) !important;
+    grid-template-rows: var(--knowledge-size) repeat(5, var(--cell-size)) var(--knowledge-size) !important;
+    gap: 4px !important;
+  }
+
+  .cell {
+    font-size: 18px;
+  }
+
+  .knowledge-cell {
+    width: 18px;
+    height: 18px;
+    font-size: 11px;
+  }
+
+  #theme-toggle {
+    top: 8px;
+    right: 8px;
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+/* Touch device detection - show keyboard on touch devices regardless of width */
+@media (pointer: coarse) {
+  #keyboard {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--bg-color);
+    padding: 8px 4px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    max-width: none;
+  }
+
+  #game-container {
+    padding-bottom: 220px;
+  }
 }
 

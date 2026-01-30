@@ -2,7 +2,7 @@ import { CellState, Mode, type State } from "./types";
 import { SIZE } from "./constants";
 import { submitLine } from "./game";
 import { render } from "./render";
-import { cells } from "./dom";
+import { cells, keyboardKeys } from "./dom";
 
 const getLineCells = (state: State): HTMLElement[] =>
   state.mode === Mode.Row
@@ -38,6 +38,15 @@ const shakeInvalidWord = (state: State): void => {
 
 const toggleMode = (state: State): void => {
   state.mode = state.mode === Mode.Row ? Mode.Col : Mode.Row;
+  updateModeButton(state);
+};
+
+const updateModeButton = (state: State): void => {
+  const modeButton = keyboardKeys.get("MODE");
+  if (modeButton) {
+    modeButton.classList.toggle("row-mode", state.mode === Mode.Row);
+    modeButton.classList.toggle("col-mode", state.mode === Mode.Col);
+  }
 };
 
 const moveCursor = (
@@ -127,6 +136,11 @@ export const setupInputHandlers = (state: State): void => {
     render(state);
   });
 
+  // Double-tap detection for touch devices
+  let lastTapTime = 0;
+  let lastTapCell: { row: number; col: number } | null = null;
+  const DOUBLE_TAP_DELAY = 300;
+
   cells.forEach((rowCells, row) => {
     rowCells.forEach((cell, col) => {
       cell.addEventListener("click", () => {
@@ -139,6 +153,56 @@ export const setupInputHandlers = (state: State): void => {
         toggleMode(state);
         render(state);
       });
+
+      // Touch double-tap support
+      cell.addEventListener("touchend", (e) => {
+        const now = Date.now();
+        const isSameCell = lastTapCell?.row === row && lastTapCell?.col === col;
+
+        if (isSameCell && now - lastTapTime < DOUBLE_TAP_DELAY) {
+          e.preventDefault();
+          toggleMode(state);
+          render(state);
+          lastTapTime = 0;
+          lastTapCell = null;
+        } else {
+          lastTapTime = now;
+          lastTapCell = { row, col };
+        }
+      });
+    });
+  });
+
+  // On-screen keyboard handlers
+  const handleKeyboardKey = (key: string): void => {
+    switch (key) {
+      case "MODE":
+        toggleMode(state);
+        break;
+      case "⌫":
+        handleBackspace(state);
+        break;
+      case "ENTER": {
+        const result = submitLine(state);
+        if (!result.success && result.error === "invalid") {
+          shakeInvalidWord(state);
+        }
+        break;
+      }
+      default:
+        if (/^[A-Z]$/.test(key)) {
+          handleLetterInput(state, key);
+        }
+    }
+
+    if (import.meta.env.DEV) console.info("state", state);
+    render(state);
+  };
+
+  keyboardKeys.forEach((keyElement, key) => {
+    keyElement.addEventListener("click", (e) => {
+      e.preventDefault();
+      handleKeyboardKey(key);
     });
   });
 };
