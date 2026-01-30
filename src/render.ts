@@ -1,4 +1,4 @@
-import { Mode, type LineKnowledge, type State } from "./types";
+import { CellState, Mode, type LineKnowledge, type State } from "./types";
 import { SIZE } from "./constants";
 import {
   cells,
@@ -6,6 +6,7 @@ import {
   rowAbsentElements,
   colMisplacedElements,
   colAbsentElements,
+  keyboardKeys,
 } from "./dom";
 
 const renderKnowledgeSet = (
@@ -51,6 +52,42 @@ const renderHighlights = (state: State): void => {
   cells[cursor.row][cursor.col].classList.add("cursor");
 };
 
+const KEYBOARD_STATE_CLASSES = ["correct", "misplaced-row", "misplaced-col", "absent"];
+
+const renderKeyboard = (state: State): void => {
+  const { mode, cursor } = state;
+  const lineIndex = mode === Mode.Row ? cursor.row : cursor.col;
+  const lineKnowledge = mode === Mode.Row
+    ? state.knowledge.row[lineIndex]
+    : state.knowledge.col[lineIndex];
+  const misplacedClass = mode === Mode.Row ? "misplaced-row" : "misplaced-col";
+  const lineCells = mode === Mode.Row
+    ? state.grid[cursor.row]
+    : state.grid.map(r => r[cursor.col]);
+  const correctLetters = lineCells.filter(c => c.state === CellState.Correct).map(c => c.letter);
+
+
+  keyboardKeys.forEach((keyElement, key) => {
+    // Skip non-letter keys
+    if (!/^[A-Z]$/.test(key)) return;
+
+    // Remove all state classes first
+    keyElement.classList.remove(...KEYBOARD_STATE_CLASSES);
+
+    // Apply correct class
+    if (correctLetters.includes(key)) {
+      keyElement.classList.add("correct");
+    }
+
+    // Apply appropriate class based on knowledge
+    if (lineKnowledge.misplaced.has(key)) {
+      keyElement.classList.add(misplacedClass);
+    } else if (lineKnowledge.absent.has(key)) {
+      keyElement.classList.add("absent");
+    }
+  });
+};
+
 export const render = (state: State): void => {
   renderGrid(state);
   renderHighlights(state);
@@ -58,4 +95,5 @@ export const render = (state: State): void => {
   renderKnowledgeSet(rowAbsentElements, state.knowledge.row, "absent", "absent");
   renderKnowledgeSet(colMisplacedElements, state.knowledge.col, "misplaced", "misplaced-col");
   renderKnowledgeSet(colAbsentElements, state.knowledge.col, "absent", "absent");
+  renderKeyboard(state);
 };

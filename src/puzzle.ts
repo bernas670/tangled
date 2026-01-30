@@ -3,7 +3,7 @@ import { BASE_PATH } from "./constants";
 export type Puzzle = string[][];
 
 let puzzles: Puzzle[] = [];
-let currentPuzzleIndex = 0;
+let currentPuzzleIndex = 1;
 
 export const loadPuzzles = (): Promise<void> =>
   fetch(`${BASE_PATH}/puzzles.txt`)
