@@ -132,19 +132,19 @@ body {
 }
 
 .correct {
-  background: var(--cell-correct);
+  background: var(--cell-correct) !important;
 }
 .misplaced-both {
-  background: var(--cell-misplaced-both);
+  background: var(--cell-misplaced-both) !important;
 }
 .misplaced-row {
-  background: var(--cell-misplaced-row);
+  background: var(--cell-misplaced-row) !important;
 }
 .misplaced-col {
-  background: var(--cell-misplaced-col);
+  background: var(--cell-misplaced-col) !important;
 }
 .absent {
-  background: var(--cell-absent);
+  background: var(--cell-absent) !important;
 }
 
 #theme-toggle {
