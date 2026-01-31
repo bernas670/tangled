@@ -13,7 +13,7 @@
   --cell-misplaced-col: #d46b9b;     /* soft magenta / pink */
 }
 
-body.dark {
+html.dark {
   --bg-color: #1e1e1e;
   --text-color: #fff;
   --cell-border: #555;
@@ -201,11 +201,11 @@ body {
   display: none;
 }
 
-body.dark #theme-toggle .icon-sun {
+html.dark #theme-toggle .icon-sun {
   display: none;
 }
 
-body.dark #theme-toggle .icon-moon {
+html.dark #theme-toggle .icon-moon {
   display: block;
 }
 
