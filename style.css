@@ -64,6 +64,25 @@ body {
   gap: 6px;
 }
 
+.tries-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.tries-label {
+  font-size: 14px;
+  font-weight: bold;
+  opacity: 0.7;
+}
+
+.tries-count {
+  font-size: 32px;
+  font-weight: bold;
+}
+
 .knowledge {
   display: flex;
   flex-wrap: wrap;
@@ -156,7 +175,6 @@ body {
 
 /* On-screen keyboard */
 #keyboard {
-  display: none;
   width: 100%;
   max-width: 500px;
   padding: 0 4px;
@@ -199,19 +217,6 @@ body {
   font-size: 12px;
 }
 
-.keyboard-key.mode-toggle {
-  background: var(--highlight-border);
-  color: white;
-}
-
-.keyboard-key.mode-toggle.row-mode::after {
-  content: "ROW";
-}
-
-.keyboard-key.mode-toggle.col-mode::after {
-  content: "COL";
-}
-
 /* Mobile responsive styles */
 @media (max-width: 600px) {
   body {
@@ -250,6 +255,14 @@ body {
     width: 18px;
     height: 18px;
     font-size: 11px;
+  }
+
+  .tries-label {
+    font-size: 11px;
+  }
+
+  .tries-count {
+    font-size: 22px;
   }
 
   #theme-toggle {
