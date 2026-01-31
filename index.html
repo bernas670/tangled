@@ -10,11 +10,12 @@
         document.documentElement.classList.add("dark");
       }
     </script>
-    <script type="module" crossorigin src="/tangled/assets/index-D28mx1hF.js"></script>
+    <script type="module" crossorigin src="/tangled/assets/index-BuTSFCkb.js"></script>
   </head>
   <body>
     <header id="header">
-      <div id="logo" class="logo-cell">t</div>
+      <a href="#" id="logo" class="logo-cell">t</a>
+      <span id="puzzle-number" class="puzzle-number" hidden></span>
       <div class="header-buttons">
         <button id="help-btn" aria-label="How to play">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -41,6 +42,29 @@
       </button>
       </div>
     </header>
+
+    <!-- Homepage -->
+    <div id="homepage">
+      <div class="homepage-content">
+        <div class="homepage-hero">
+          <h1 class="homepage-title">tangled</h1>
+          <p class="homepage-subtitle">Solve two interlocking word puzzles on a 5×5 grid.</p>
+        </div>
+
+        <div class="homepage-description">
+          <p>Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words. Every letter must work for both its row AND column word.</p>
+        </div>
+
+        <button id="play-now-btn" class="primary-btn">Play Now</button>
+
+        <div class="puzzle-selector">
+          <h2>Select a Puzzle</h2>
+          <div id="puzzle-grid" class="puzzle-grid">
+            <!-- Puzzles will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Help Modal -->
     <div id="help-modal" class="modal" hidden>
@@ -125,7 +149,7 @@
         </div>
       </div>
     </div>
-    <div id="game-container">
+    <div id="game-container" hidden>
       <div id="board"></div>
       <div id="keyboard"></div>
     </div>
