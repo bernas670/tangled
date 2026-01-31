@@ -17,3 +17,11 @@ function toggleTheme() {
 
 // Button click
 toggleBtn.addEventListener("click", toggleTheme);
+
+// Set random state class on logo
+const logo = document.getElementById("logo");
+if (logo) {
+  const stateClasses = ["correct", "misplaced-both", "misplaced-row", "misplaced-col"];
+  const randomClass = stateClasses[Math.floor(Math.random() * stateClasses.length)];
+  logo.classList.add(randomClass);
+}

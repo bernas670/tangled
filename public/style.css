@@ -39,7 +39,7 @@ body {
   display: flex;
   justify-content: center;
   margin: 0;
-  padding-top: 40px;
+  padding-top: 56px;
   background: var(--bg-color);
   color: var(--text-color);
   transition: background 0.3s, color 0.3s;
@@ -166,11 +166,60 @@ body {
   background: var(--cell-absent) !important;
 }
 
-#theme-toggle {
+/* Header */
+#header {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
   z-index: 100;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+#theme-toggle:hover {
+  background: var(--highlight-bg);
+}
+
+#theme-toggle .icon-moon {
+  display: none;
+}
+
+body.dark #theme-toggle .icon-sun {
+  display: none;
+}
+
+body.dark #theme-toggle .icon-moon {
+  display: block;
+}
+
+.logo-cell {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--cell-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  user-select: none;
 }
 
 /* On-screen keyboard */
@@ -220,7 +269,12 @@ body {
 /* Mobile responsive styles */
 @media (max-width: 600px) {
   body {
-    padding-top: 50px;
+    padding-top: 56px;
+  }
+
+  #header {
+    height: 48px;
+    padding: 0 12px;
   }
 
   #keyboard {
@@ -229,7 +283,6 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--bg-color);
     padding: 8px 4px;
     padding-bottom: max(8px, env(safe-area-inset-bottom));
     max-width: none;
@@ -265,11 +318,15 @@ body {
     font-size: 22px;
   }
 
-  #theme-toggle {
-    top: 8px;
-    right: 8px;
-    font-size: 12px;
-    padding: 4px 8px;
+  .logo-cell {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  #theme-toggle svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -281,7 +338,6 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--bg-color);
     padding: 8px 4px;
     padding-bottom: max(8px, env(safe-area-inset-bottom));
     max-width: none;
