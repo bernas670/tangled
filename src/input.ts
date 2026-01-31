@@ -4,6 +4,8 @@ import { submitLine } from "./game";
 import { render } from "./render";
 import { cells, keyboardKeys } from "./dom";
 import { shakeCells, animateCorrectLetter, animateCorrectLine, celebratePuzzleComplete } from "./animations";
+import { getCurrentPuzzleIndex } from "./puzzle";
+import { markPuzzleSolved } from "./storage";
 
 const getLineCells = (state: State): HTMLElement[] =>
   state.mode === Mode.Row
@@ -91,6 +93,7 @@ export const setupInputHandlers = (state: State): void => {
           const direction = state.mode === Mode.Row ? "horizontal" : "vertical";
           shakeCells(lineCells, direction);
         } else if (result.puzzleComplete) {
+          markPuzzleSolved(getCurrentPuzzleIndex());
           celebratePuzzleComplete(cells);
         } else if (result.lineComplete) {
           const lineCells = getLineCells(state);
@@ -162,6 +165,7 @@ export const setupInputHandlers = (state: State): void => {
           const direction = state.mode === Mode.Row ? "horizontal" : "vertical";
           shakeCells(lineCells, direction);
         } else if (result.puzzleComplete) {
+          markPuzzleSolved(getCurrentPuzzleIndex());
           celebratePuzzleComplete(cells);
         } else if (result.lineComplete) {
           const lineCells = getLineCells(state);

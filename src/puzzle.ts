@@ -26,6 +26,8 @@ export const setPuzzleIndex = (index: number): void => {
   }
 };
 
+export const getCurrentPuzzleIndex = (): number => currentPuzzleIndex;
+
 export const getPuzzleCount = (): number => puzzles.length;
 
 let words: Set<string> = new Set();
