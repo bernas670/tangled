@@ -3,11 +3,22 @@ if (!toggleBtn) throw new Error("Theme toggle button not found");
 
 const logo = document.getElementById("logo");
 
-// Set random state class on logo
+// Set random state class on logo and primary color
+const stateToVar: Record<string, string> = {
+  "correct": "--cell-correct",
+  "misplaced-both": "--cell-misplaced-both",
+  "misplaced-row": "--cell-misplaced-row",
+  "misplaced-col": "--cell-misplaced-col",
+};
+
 if (logo) {
   const stateClasses = ["correct", "misplaced-both", "misplaced-row", "misplaced-col"];
   const randomClass = stateClasses[Math.floor(Math.random() * stateClasses.length)];
   logo.classList.add(randomClass);
+
+  // Set primary color CSS variable based on logo color
+  const cssVar = stateToVar[randomClass];
+  document.documentElement.style.setProperty("--primary-color", `var(${cssVar})`);
 }
 
 // Generate favicon matching the logo

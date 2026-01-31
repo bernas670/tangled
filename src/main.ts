@@ -51,7 +51,7 @@ const populatePuzzleGrid = (): void => {
     if (solvedPuzzles.has(i)) {
       item.classList.add("solved");
     }
-    item.textContent = String(i + 1);
+    item.textContent = `#${String(i + 1).padStart(3, '0')}`;
     item.addEventListener("click", () => startPuzzle(i));
     puzzleGrid.appendChild(item);
   }
