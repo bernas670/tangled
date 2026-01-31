@@ -1,6 +1,7 @@
 const STORAGE_KEYS = {
   SOLVED_PUZZLES: "tangled_solved_puzzles",
   HAS_PLAYED: "tangled_has_played",
+  LANGUAGE: "tangled_language",
 };
 
 export const getSolvedPuzzles = (): Set<number> => {
@@ -31,4 +32,12 @@ export const hasPlayedBefore = (): boolean => {
 
 export const markAsPlayed = (): void => {
   localStorage.setItem(STORAGE_KEYS.HAS_PLAYED, "true");
+};
+
+export const getStoredLanguage = (): string | null => {
+  return localStorage.getItem(STORAGE_KEYS.LANGUAGE);
+};
+
+export const setStoredLanguage = (lang: string): void => {
+  localStorage.setItem(STORAGE_KEYS.LANGUAGE, lang);
 };

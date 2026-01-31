@@ -4,7 +4,7 @@ const board = document.getElementById("board")!;
 const keyboardContainer = document.getElementById("keyboard")!;
 
 // Tries counter in top-left corner
-const createTriesElement = (): HTMLElement => {
+const createTriesElement = (): { container: HTMLElement; count: HTMLElement } => {
   const container = document.createElement("div");
   container.className = "tries-container";
   container.style.gridRow = "1";
@@ -13,6 +13,7 @@ const createTriesElement = (): HTMLElement => {
   const label = document.createElement("div");
   label.className = "tries-label";
   label.textContent = "TRIES";
+  label.dataset.i18n = "game.tries";
 
   const count = document.createElement("div");
   count.className = "tries-count";
@@ -22,10 +23,11 @@ const createTriesElement = (): HTMLElement => {
   container.appendChild(count);
   board.appendChild(container);
 
-  return count;
+  return { container, count };
 };
 
-export const triesElement = createTriesElement();
+const triesElements = createTriesElement();
+export const triesElement = triesElements.count;
 
 const createGridCells = (): HTMLElement[][] => {
   const cells: HTMLElement[][] = [];
@@ -109,6 +111,7 @@ const createKeyboard = (): Map<string, HTMLElement> => {
 
       if (key === "ENTER") {
         keyElement.textContent = "ENTER";
+        keyElement.dataset.i18n = "keyboard.enter";
         keyElement.classList.add("wide");
       } else if (key === "⌫") {
         keyElement.textContent = "⌫";

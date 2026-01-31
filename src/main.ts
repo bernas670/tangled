@@ -2,8 +2,10 @@ import { state, resetState } from "./state";
 import { loadWords, loadPuzzles, setPuzzleIndex, getPuzzleCount } from "./puzzle";
 import { render } from "./render";
 import { setupInputHandlers } from "./input";
-import { getSolvedPuzzles, hasPlayedBefore, markAsPlayed } from "./storage";
+import { getSolvedPuzzles, hasPlayedBefore, markAsPlayed, getStoredLanguage } from "./storage";
 import { startAutoPlay } from "./autoplay";
+import { loadTranslations, setCurrentLanguage, detectBrowserLanguage } from "./i18n";
+import { setupLanguageSelector, applyTranslations } from "./language";
 
 const homepage = document.getElementById("homepage");
 const gameContainer = document.getElementById("game-container");
@@ -153,7 +155,25 @@ window.addEventListener("popstate", () => {
   }
 });
 
-Promise.all([loadWords(), loadPuzzles()]).then(() => {
+const initApp = async () => {
+  // Load language preference (stored or detect browser)
+  const storedLang = getStoredLanguage();
+  const language = storedLang ?? detectBrowserLanguage();
+  setCurrentLanguage(language);
+
+  // Load translations and game data for that language
+  await Promise.all([
+    loadTranslations(language),
+    loadWords(language),
+    loadPuzzles(language),
+  ]);
+
+  // Apply translations to DOM
+  applyTranslations();
+
+  // Setup language selector
+  setupLanguageSelector();
+
   console.log("Game data loaded");
 
   const urlPuzzleIndex = getPuzzleIndexFromUrl();
@@ -188,4 +208,6 @@ Promise.all([loadWords(), loadPuzzles()]).then(() => {
     e.preventDefault();
     showHomepage();
   });
-});
+};
+
+initApp();
