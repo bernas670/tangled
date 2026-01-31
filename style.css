@@ -623,7 +623,7 @@ html.dark #theme-toggle .icon-moon {
 }
 
 .primary-btn {
-  background: var(--cell-correct);
+  background: var(--primary-color, var(--cell-correct));
   color: #fff;
   border: none;
   padding: 16px 48px;
@@ -684,9 +684,9 @@ html.dark #theme-toggle .icon-moon {
 }
 
 .puzzle-item.solved {
-  background: var(--cell-correct);
+  background: var(--primary-color, var(--cell-correct));
   color: #fff;
-  border-color: var(--cell-correct);
+  border-color: var(--primary-color, var(--cell-correct));
 }
 
 .puzzle-item.solved:hover {
