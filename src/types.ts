@@ -35,5 +35,9 @@ export type State = {
     row: LineKnowledge[];
     col: LineKnowledge[];
   };
+  tries: {
+    row: number[];
+    col: number[];
+  };
 };
 

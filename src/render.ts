@@ -7,6 +7,7 @@ import {
   colMisplacedElements,
   colAbsentElements,
   keyboardKeys,
+  triesElement,
 } from "./dom";
 
 const renderKnowledgeSet = (
@@ -54,6 +55,13 @@ const renderHighlights = (state: State): void => {
 
 const KEYBOARD_STATE_CLASSES = ["correct", "misplaced-row", "misplaced-col", "absent"];
 
+const renderTries = (state: State): void => {
+  const totalTries =
+    state.tries.row.reduce((sum, t) => sum + t, 0) +
+    state.tries.col.reduce((sum, t) => sum + t, 0);
+  triesElement.textContent = String(totalTries);
+};
+
 const renderKeyboard = (state: State): void => {
   const { mode, cursor } = state;
   const lineIndex = mode === Mode.Row ? cursor.row : cursor.col;
@@ -95,5 +103,6 @@ export const render = (state: State): void => {
   renderKnowledgeSet(rowAbsentElements, state.knowledge.row, "absent", "absent");
   renderKnowledgeSet(colMisplacedElements, state.knowledge.col, "misplaced", "misplaced-col");
   renderKnowledgeSet(colAbsentElements, state.knowledge.col, "absent", "absent");
+  renderTries(state);
   renderKeyboard(state);
 };

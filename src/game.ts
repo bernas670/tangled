@@ -101,5 +101,12 @@ export const submitLine = (state: State): SubmitResult => {
     updateCellState(state, cell, row, col);
   });
 
+  // Increment tries for the current line
+  if (mode === Mode.Row) {
+    state.tries.row[cursor.row]++;
+  } else {
+    state.tries.col[cursor.col]++;
+  }
+
   return { success: true };
 };

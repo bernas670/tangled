@@ -3,6 +3,30 @@ import { SIZE } from "./constants";
 const board = document.getElementById("board")!;
 const keyboardContainer = document.getElementById("keyboard")!;
 
+// Tries counter in top-left corner
+const createTriesElement = (): HTMLElement => {
+  const container = document.createElement("div");
+  container.className = "tries-container";
+  container.style.gridRow = "1";
+  container.style.gridColumn = "1";
+
+  const label = document.createElement("div");
+  label.className = "tries-label";
+  label.textContent = "TRIES";
+
+  const count = document.createElement("div");
+  count.className = "tries-count";
+  count.textContent = "0";
+
+  container.appendChild(label);
+  container.appendChild(count);
+  board.appendChild(container);
+
+  return count;
+};
+
+export const triesElement = createTriesElement();
+
 const createGridCells = (): HTMLElement[][] => {
   const cells: HTMLElement[][] = [];
 
