@@ -3,38 +3,12 @@ import { SIZE } from "./constants";
 import { submitLine } from "./game";
 import { render } from "./render";
 import { cells, keyboardKeys } from "./dom";
+import { shakeCells, animateCorrectLetter, animateCorrectLine, celebratePuzzleComplete } from "./animations";
 
 const getLineCells = (state: State): HTMLElement[] =>
   state.mode === Mode.Row
     ? cells[state.cursor.row]
     : cells.map((row) => row[state.cursor.col]);
-
-const shakeInvalidWord = (state: State): void => {
-  const lineCells = getLineCells(state);
-  const isRow = state.mode === Mode.Row;
-
-  const keyframes = isRow
-    ? [
-        { transform: "translateX(0)" },
-        { transform: "translateX(-6px)" },
-        { transform: "translateX(6px)" },
-        { transform: "translateX(-4px)" },
-        { transform: "translateX(4px)" },
-        { transform: "translateX(0)" },
-      ]
-    : [
-        { transform: "translateY(0)" },
-        { transform: "translateY(-6px)" },
-        { transform: "translateY(6px)" },
-        { transform: "translateY(-4px)" },
-        { transform: "translateY(4px)" },
-        { transform: "translateY(0)" },
-      ];
-
-  lineCells.forEach((cell) => {
-    cell.animate(keyframes, { duration: 400, easing: "ease-in-out" });
-  });
-};
 
 const toggleMode = (state: State): void => {
   state.mode = state.mode === Mode.Row ? Mode.Col : Mode.Row;
@@ -113,7 +87,18 @@ export const setupInputHandlers = (state: State): void => {
       case "Enter": {
         const result = submitLine(state);
         if (!result.success) {
-          shakeInvalidWord(state);
+          const lineCells = getLineCells(state);
+          const direction = state.mode === Mode.Row ? "horizontal" : "vertical";
+          shakeCells(lineCells, direction);
+        } else if (result.puzzleComplete) {
+          celebratePuzzleComplete(cells);
+        } else if (result.lineComplete) {
+          const lineCells = getLineCells(state);
+          animateCorrectLine(lineCells);
+        } else if (result.newlyCorrect.length > 0) {
+          result.newlyCorrect.forEach(({ row, col }) => {
+            animateCorrectLetter(cells[row][col]);
+          });
         }
         break;
       }
@@ -173,7 +158,18 @@ export const setupInputHandlers = (state: State): void => {
       case "ENTER": {
         const result = submitLine(state);
         if (!result.success) {
-          shakeInvalidWord(state);
+          const lineCells = getLineCells(state);
+          const direction = state.mode === Mode.Row ? "horizontal" : "vertical";
+          shakeCells(lineCells, direction);
+        } else if (result.puzzleComplete) {
+          celebratePuzzleComplete(cells);
+        } else if (result.lineComplete) {
+          const lineCells = getLineCells(state);
+          animateCorrectLine(lineCells);
+        } else if (result.newlyCorrect.length > 0) {
+          result.newlyCorrect.forEach(({ row, col }) => {
+            animateCorrectLetter(cells[row][col]);
+          });
         }
         break;
       }

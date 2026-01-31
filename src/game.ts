@@ -57,7 +57,9 @@ const updateCellState = (
 };
 
 export type SubmitError = "incomplete" | "invalid";
-export type SubmitResult = { success: true } | { success: false; error: SubmitError };
+export type SubmitResult =
+  | { success: true; newlyCorrect: Array<{ row: number; col: number }>; lineComplete: boolean; puzzleComplete: boolean }
+  | { success: false; error: SubmitError };
 
 export const submitLine = (state: State): SubmitResult => {
   const { mode, grid, cursor } = state;
@@ -77,6 +79,7 @@ export const submitLine = (state: State): SubmitResult => {
   }
 
   const puzzle = getPuzzle();
+  const newlyCorrect: Array<{ row: number; col: number }> = [];
 
   // First pass: mark correct letters and clear their misplaced status
   line.forEach((cell, index) => {
@@ -84,8 +87,12 @@ export const submitLine = (state: State): SubmitResult => {
     const correctLetter =
       mode === Mode.Row ? puzzle[cursor.row][index] : puzzle[index][cursor.col];
 
+    const wasCorrect = cell.state === CellState.Correct;
     if (cell.letter === correctLetter) {
       cell.state = CellState.Correct;
+      if (!wasCorrect) {
+        newlyCorrect.push({ row, col });
+      }
     }
 
     state.knowledge.col[col].misplaced.delete(cell.letter);
@@ -108,5 +115,8 @@ export const submitLine = (state: State): SubmitResult => {
     state.tries.col[cursor.col]++;
   }
 
-  return { success: true };
+  const lineComplete = line.every((cell) => cell.state === CellState.Correct);
+  const puzzleComplete = grid.every((row) => row.every((cell) => cell.state === CellState.Correct));
+
+  return { success: true, newlyCorrect, lineComplete, puzzleComplete };
 };
