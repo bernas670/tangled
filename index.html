@@ -46,73 +46,82 @@
     <div id="help-modal" class="modal" hidden>
       <div class="modal-backdrop"></div>
       <div class="modal-content">
-        <button class="modal-close" aria-label="Close">&times;</button>
-
-        <h1>How To Play</h1>
-        <p class="subtitle">Solve two interlocking word puzzles on a 5×5 grid.</p>
-
-        <ul>
-          <li>Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words.</li>
-          <li>Every letter must work for both its row AND column word.</li>
-          <li>Toggle between <strong>Row</strong> and <strong>Column</strong> mode to submit words.</li>
-        </ul>
-
-        <h2>Tile Colors</h2>
-        <div class="help-example">
-          <div class="example-tiles">
-            <span class="help-tile correct">A</span>
-          </div>
-          <p><strong>Green</strong> — Correct position.</p>
+        <div class="modal-header">
+          <h1>How To Play</h1>
+          <button class="modal-close" aria-label="Close">&times;</button>
         </div>
-        <div class="help-example">
-          <div class="example-tiles">
-            <span class="help-tile misplaced-both">B</span>
-          </div>
-          <p><strong>Yellow</strong> — In both the row and column word, but wrong spot.</p>
-        </div>
-        <div class="help-example">
-          <div class="example-tiles">
-            <span class="help-tile misplaced-row">C</span>
-          </div>
-          <p><strong>Cyan</strong> — In the row word only, but wrong spot.</p>
-        </div>
-        <div class="help-example">
-          <div class="example-tiles">
-            <span class="help-tile misplaced-col">D</span>
-          </div>
-          <p><strong>Pink</strong> — In the column word only, but wrong spot.</p>
-        </div>
-        <div class="help-example">
-          <div class="example-tiles">
-            <span class="help-tile absent">E</span>
-          </div>
-          <p><strong>Gray</strong> — Not in either word.</p>
-        </div>
+        <div class="modal-body">
+          <p class="subtitle">Solve two interlocking word puzzles on a 5×5 grid.</p>
 
-        <h2>Grid Layout</h2>
-        <p>The panels around the grid track your knowledge:</p>
-        <ul>
-          <li><strong>Left/Right panels</strong> — Misplaced and absent letters for each row.</li>
-          <li><strong>Top/Bottom panels</strong> — Misplaced and absent letters for each column.</li>
-        </ul>
-
-        <h2 class="controls-desktop">Controls</h2>
-        <div class="controls-desktop">
           <ul>
-            <li><strong>Arrow keys</strong> — Move cursor.</li>
-            <li><strong>Space</strong> — Toggle Row/Column mode.</li>
-            <li><strong>Enter</strong> — Submit current line.</li>
-            <li><strong>Backspace</strong> — Delete letter.</li>
+            <li>Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words.</li>
+            <li>Every letter must work for both its row AND column word.</li>
+            <li>Toggle between <strong>Row</strong> and <strong>Column</strong> mode to submit words.</li>
           </ul>
-        </div>
 
-        <h2 class="controls-touch">Controls</h2>
-        <div class="controls-touch">
+          <h2>Tile Colors</h2>
+          <div class="help-example">
+            <div class="example-tiles">
+              <span class="help-tile correct">A</span>
+            </div>
+            <p><strong>Green</strong> — Correct position.</p>
+          </div>
+          <div class="help-example">
+            <div class="example-tiles">
+              <span class="help-tile misplaced-both">B</span>
+            </div>
+            <p><strong>Yellow</strong> — In both the row and column word, but wrong spot.</p>
+          </div>
+          <div class="help-example">
+            <div class="example-tiles">
+              <span class="help-tile misplaced-row">C</span>
+            </div>
+            <p><strong>Cyan</strong> — In the row word only, but wrong spot.</p>
+          </div>
+          <div class="help-example">
+            <div class="example-tiles">
+              <span class="help-tile misplaced-col">D</span>
+            </div>
+            <p><strong>Pink</strong> — In the column word only, but wrong spot.</p>
+          </div>
+          <div class="help-example">
+            <div class="example-tiles">
+              <span class="help-tile absent">E</span>
+            </div>
+            <p><strong>Gray</strong> — Not in either word.</p>
+          </div>
+
+          <h2>Grid Layout</h2>
+          <p>The panels around the grid track your knowledge:</p>
           <ul>
-            <li><strong>Tap</strong> — Select a cell.</li>
-            <li><strong>Double-tap</strong> — Select cell and toggle mode.</li>
-            <li>Use the <strong>on-screen keyboard</strong> to type.</li>
+            <li><strong>Left/Right panels</strong> — Misplaced and absent letters for each row.</li>
+            <li><strong>Top/Bottom panels</strong> — Misplaced and absent letters for each column.</li>
           </ul>
+
+          <h2 class="controls-desktop">Controls</h2>
+          <div class="controls-desktop">
+            <h3>Keyboard</h3>
+            <ul>
+              <li><strong>Arrow keys</strong> — Move cursor.</li>
+              <li><strong>Space</strong> — Toggle Row/Column mode.</li>
+              <li><strong>Enter</strong> — Submit current line.</li>
+              <li><strong>Backspace</strong> — Delete letter.</li>
+            </ul>
+            <h3>Mouse</h3>
+            <ul>
+              <li><strong>Click</strong> — Select a cell.</li>
+              <li><strong>Double-click</strong> — Select cell and toggle mode.</li>
+            </ul>
+          </div>
+
+          <h2 class="controls-touch">Controls</h2>
+          <div class="controls-touch">
+            <ul>
+              <li><strong>Tap</strong> — Select a cell.</li>
+              <li><strong>Double-tap</strong> — Select cell and toggle mode.</li>
+              <li>Use the <strong>on-screen keyboard</strong> to type.</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
