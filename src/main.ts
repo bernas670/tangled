@@ -3,14 +3,21 @@ import { loadWords, loadPuzzles, setPuzzleIndex, getPuzzleCount } from "./puzzle
 import { render } from "./render";
 import { setupInputHandlers } from "./input";
 import { getSolvedPuzzles, hasPlayedBefore, markAsPlayed } from "./storage";
+import { startAutoPlay } from "./autoplay";
 
 const homepage = document.getElementById("homepage");
 const gameContainer = document.getElementById("game-container");
+const puzzleSelectorScreen = document.getElementById("puzzle-selector-screen");
 const playNowBtn = document.getElementById("play-now-btn");
+const selectPuzzleBtn = document.getElementById("select-puzzle-btn");
+const backToHomeBtn = document.getElementById("back-to-home-btn");
 const puzzleGrid = document.getElementById("puzzle-grid");
+const miniGrid = document.getElementById("mini-grid");
 const helpModal = document.getElementById("help-modal");
 const logo = document.getElementById("logo");
 const puzzleNumberEl = document.getElementById("puzzle-number");
+
+let stopAutoPlay: (() => void) | null = null;
 
 const getPuzzleIndexFromUrl = (): number | null => {
   const params = new URLSearchParams(window.location.search);
@@ -24,17 +31,40 @@ const getPuzzleIndexFromUrl = (): number | null => {
 const showHomepage = (): void => {
   homepage?.removeAttribute("hidden");
   gameContainer?.setAttribute("hidden", "");
+  puzzleSelectorScreen?.setAttribute("hidden", "");
   puzzleNumberEl?.setAttribute("hidden", "");
   // Update URL without puzzle param
   const url = new URL(window.location.href);
   url.searchParams.delete("puzzle");
   window.history.replaceState({}, "", url.pathname);
+  // Start auto-play
+  if (miniGrid && !stopAutoPlay) {
+    stopAutoPlay = startAutoPlay(miniGrid);
+  }
+};
+
+const showPuzzleSelector = (): void => {
+  homepage?.setAttribute("hidden", "");
+  gameContainer?.setAttribute("hidden", "");
+  puzzleSelectorScreen?.removeAttribute("hidden");
+  puzzleNumberEl?.setAttribute("hidden", "");
+  // Stop auto-play
+  if (stopAutoPlay) {
+    stopAutoPlay();
+    stopAutoPlay = null;
+  }
   populatePuzzleGrid();
 };
 
 const showGame = (): void => {
   homepage?.setAttribute("hidden", "");
   gameContainer?.removeAttribute("hidden");
+  puzzleSelectorScreen?.setAttribute("hidden", "");
+  // Stop auto-play
+  if (stopAutoPlay) {
+    stopAutoPlay();
+    stopAutoPlay = null;
+  }
 };
 
 const populatePuzzleGrid = (): void => {
@@ -150,6 +180,8 @@ Promise.all([loadWords(), loadPuzzles()]).then(() => {
 
   // Setup homepage event listeners
   playNowBtn?.addEventListener("click", startRandomPuzzle);
+  selectPuzzleBtn?.addEventListener("click", showPuzzleSelector);
+  backToHomeBtn?.addEventListener("click", showHomepage);
 
   // Logo click to go back to homepage
   logo?.addEventListener("click", (e) => {
