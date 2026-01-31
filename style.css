@@ -406,7 +406,6 @@ html.dark #theme-toggle .icon-moon {
   right: 0;
   background: var(--bg-color);
   border: 2px solid var(--cell-border);
-  border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   z-index: 150;
   overflow: hidden;
@@ -454,6 +453,10 @@ html.dark #theme-toggle .icon-moon {
 
 #help-btn:hover {
   background: var(--highlight-bg);
+}
+
+#help-btn[hidden] {
+  display: none;
 }
 
 /* Help Modal */
@@ -682,6 +685,23 @@ html.dark #theme-toggle .icon-moon {
   margin: 0;
 }
 
+.homepage-footer {
+  margin-top: auto;
+  padding-top: 32px;
+  font-size: 14px;
+  opacity: 0.6;
+  font-family: ui-monospaced, monospaced;
+}
+
+.homepage-footer a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.homepage-footer a:hover {
+  text-decoration: underline;
+}
+
 /* Mini Grid for auto-play demo */
 .mini-grid {
   display: grid;
@@ -706,6 +726,7 @@ html.dark #theme-toggle .icon-moon {
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-direction: row-reverse;
 }
 
 .primary-btn {
