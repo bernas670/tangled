@@ -2,7 +2,8 @@ import { state, resetState } from "./state";
 import { loadWords, loadPuzzles, setPuzzleIndex, getPuzzleCount } from "./puzzle";
 import { render } from "./render";
 import { setupInputHandlers } from "./input";
-import { getSolvedPuzzles, hasPlayedBefore, markAsPlayed, getStoredLanguage } from "./storage";
+import { getSolvedPuzzles, hasPlayedBefore, markAsPlayed, getStoredLanguage, runMigrations } from "./storage";
+import { getCurrentLanguage } from "./i18n";
 import { startAutoPlay } from "./autoplay";
 import { loadTranslations, setCurrentLanguage, detectBrowserLanguage } from "./i18n";
 import { setupLanguageSelector, applyTranslations } from "./language";
@@ -77,7 +78,7 @@ const populatePuzzleGrid = (): void => {
   if (!puzzleGrid) return;
 
   const puzzleCount = getPuzzleCount();
-  const solvedPuzzles = getSolvedPuzzles();
+  const solvedPuzzles = getSolvedPuzzles(getCurrentLanguage());
 
   puzzleGrid.innerHTML = "";
 
@@ -123,7 +124,7 @@ const startPuzzle = (index: number): void => {
 
 const startRandomPuzzle = (): void => {
   const puzzleCount = getPuzzleCount();
-  const solvedPuzzles = getSolvedPuzzles();
+  const solvedPuzzles = getSolvedPuzzles(getCurrentLanguage());
 
   // Try to find an unsolved puzzle first
   const unsolvedPuzzles: number[] = [];
@@ -160,6 +161,9 @@ window.addEventListener("popstate", () => {
 });
 
 const initApp = async () => {
+  // Run storage migrations before accessing any stored data
+  runMigrations();
+
   // Load language preference (stored or detect browser)
   const storedLang = getStoredLanguage();
   const language = storedLang ?? detectBrowserLanguage();
