@@ -16,6 +16,7 @@ const backToHomeBtn = document.getElementById("back-to-home-btn");
 const puzzleGrid = document.getElementById("puzzle-grid");
 const miniGrid = document.getElementById("mini-grid");
 const helpModal = document.getElementById("help-modal");
+const helpBtn = document.getElementById("help-btn");
 const logo = document.getElementById("logo");
 const puzzleNumberEl = document.getElementById("puzzle-number");
 
@@ -35,6 +36,7 @@ const showHomepage = (): void => {
   gameContainer?.setAttribute("hidden", "");
   puzzleSelectorScreen?.setAttribute("hidden", "");
   puzzleNumberEl?.setAttribute("hidden", "");
+  helpBtn?.setAttribute("hidden", "");
   // Update URL without puzzle param
   const url = new URL(window.location.href);
   url.searchParams.delete("puzzle");
@@ -50,6 +52,7 @@ const showPuzzleSelector = (): void => {
   gameContainer?.setAttribute("hidden", "");
   puzzleSelectorScreen?.removeAttribute("hidden");
   puzzleNumberEl?.setAttribute("hidden", "");
+  helpBtn?.removeAttribute("hidden");
   // Stop auto-play
   if (stopAutoPlay) {
     stopAutoPlay();
@@ -62,6 +65,7 @@ const showGame = (): void => {
   homepage?.setAttribute("hidden", "");
   gameContainer?.removeAttribute("hidden");
   puzzleSelectorScreen?.setAttribute("hidden", "");
+  helpBtn?.removeAttribute("hidden");
   // Stop auto-play
   if (stopAutoPlay) {
     stopAutoPlay();
