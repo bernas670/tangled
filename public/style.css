@@ -706,6 +706,7 @@ html.dark #theme-toggle .icon-moon {
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-direction: row-reverse;
 }
 
 .primary-btn {
