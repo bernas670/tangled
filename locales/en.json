@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "code": "en",
+    "name": "English",
+    "nativeName": "English"
+  },
+  "homepage": {
+    "subtitle": "Solve two interlocking word puzzles on a 5×5 grid.",
+    "description": "Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words. Every letter must work for both its row AND column word.",
+    "playNow": "Play Now",
+    "selectPuzzle": "Select Puzzle"
+  },
+  "puzzleSelector": {
+    "title": "Select a Puzzle"
+  },
+  "game": {
+    "tries": "TRIES"
+  },
+  "keyboard": {
+    "enter": "ENTER"
+  },
+  "help": {
+    "title": "How To Play",
+    "subtitle": "Solve two interlocking word puzzles on a 5×5 grid.",
+    "rules": {
+      "fillGrid": "Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words.",
+      "letterWorks": "Every letter must work for both its row AND column word.",
+      "toggleMode": "Toggle between <strong>Row</strong> and <strong>Column</strong> mode to submit words."
+    },
+    "tileColors": "Tile Colors",
+    "green": "<strong>Green</strong> — Correct position.",
+    "yellow": "<strong>Yellow</strong> — In both the row and column word, but wrong spot.",
+    "cyan": "<strong>Cyan</strong> — In the row word only, but wrong spot.",
+    "pink": "<strong>Pink</strong> — In the column word only, but wrong spot.",
+    "gray": "<strong>Gray</strong> — Not in either word.",
+    "gridLayout": "Grid Layout",
+    "panelsDescription": "The panels around the grid track your knowledge:",
+    "leftRightPanels": "<strong>Left/Right panels</strong> — Misplaced and absent letters for each row.",
+    "topBottomPanels": "<strong>Top/Bottom panels</strong> — Misplaced and absent letters for each column.",
+    "controls": "Controls",
+    "keyboard": "Keyboard",
+    "arrowKeys": "<strong>Arrow keys</strong> — Move cursor.",
+    "space": "<strong>Space</strong> — Toggle Row/Column mode.",
+    "enter": "<strong>Enter</strong> — Submit current line.",
+    "backspace": "<strong>Backspace</strong> — Delete letter.",
+    "escape": "<strong>Esc</strong> — Toggle this modal.",
+    "mouse": "Mouse",
+    "click": "<strong>Click</strong> — Select a cell.",
+    "doubleClick": "<strong>Double-click</strong> — Select cell and toggle mode.",
+    "touch": "Touch",
+    "tap": "<strong>Tap</strong> — Select a cell.",
+    "doubleTap": "<strong>Double-tap</strong> — Select cell and toggle mode.",
+    "useKeyboard": "Use the <strong>on-screen keyboard</strong> to type."
+  },
+  "aria": {
+    "howToPlay": "How to play",
+    "selectLanguage": "Select language",
+    "toggleTheme": "Toggle theme",
+    "close": "Close"
+  }
+}

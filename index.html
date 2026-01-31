@@ -10,21 +10,28 @@
         document.documentElement.classList.add("dark");
       }
     </script>
-    <script type="module" crossorigin src="/tangled/assets/index-BIlrzUr1.js"></script>
+    <script type="module" crossorigin src="/tangled/assets/index-CrmsKgEV.js"></script>
   </head>
   <body>
     <header id="header">
       <a href="#" id="logo" class="logo-cell">t</a>
       <span id="puzzle-number" class="puzzle-number" hidden></span>
       <div class="header-buttons">
-        <button id="help-btn" aria-label="How to play">
+        <button id="language-btn" data-i18n-aria="aria.selectLanguage" aria-label="Select language">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+        </button>
+        <button id="help-btn" data-i18n-aria="aria.howToPlay" aria-label="How to play">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"></circle>
             <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
             <line x1="12" y1="17" x2="12.01" y2="17"></line>
           </svg>
         </button>
-        <button id="theme-toggle" aria-label="Toggle theme">
+        <button id="theme-toggle" data-i18n-aria="aria.toggleTheme" aria-label="Toggle theme">
         <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="5"></circle>
           <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -48,18 +55,18 @@
       <div class="homepage-content">
         <div class="homepage-hero">
           <h1 class="homepage-title">tangled</h1>
-          <p class="homepage-subtitle">Solve two interlocking word puzzles on a 5×5 grid.</p>
+          <p class="homepage-subtitle" data-i18n="homepage.subtitle">Solve two interlocking word puzzles on a 5×5 grid.</p>
         </div>
 
         <div id="mini-grid" class="mini-grid"></div>
 
         <div class="homepage-description">
-          <p>Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words. Every letter must work for both its row AND column word.</p>
+          <p data-i18n-html="homepage.description">Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words. Every letter must work for both its row AND column word.</p>
         </div>
 
         <div class="homepage-buttons">
-          <button id="play-now-btn" class="primary-btn">Play Now</button>
-          <button id="select-puzzle-btn" class="secondary-btn">Select Puzzle</button>
+          <button id="play-now-btn" class="primary-btn" data-i18n="homepage.playNow">Play Now</button>
+          <button id="select-puzzle-btn" class="secondary-btn" data-i18n="homepage.selectPuzzle">Select Puzzle</button>
         </div>
       </div>
     </div>
@@ -68,7 +75,7 @@
     <div id="puzzle-selector-screen" hidden>
       <div class="puzzle-selector-header">
         <button id="back-to-home-btn" class="back-btn">&larr;</button>
-        <h1>Select a Puzzle</h1>
+        <h1 data-i18n="puzzleSelector.title">Select a Puzzle</h1>
       </div>
       <div id="puzzle-grid" class="puzzle-grid">
         <!-- Populated by JS -->
@@ -80,80 +87,80 @@
       <div class="modal-backdrop"></div>
       <div class="modal-content">
         <div class="modal-header">
-          <h1>How To Play</h1>
-          <button class="modal-close" aria-label="Close">&times;</button>
+          <h1 data-i18n="help.title">How To Play</h1>
+          <button class="modal-close" data-i18n-aria="aria.close" aria-label="Close">&times;</button>
         </div>
         <div class="modal-body">
-          <p class="subtitle">Solve two interlocking word puzzles on a 5×5 grid.</p>
+          <p class="subtitle" data-i18n="help.subtitle">Solve two interlocking word puzzles on a 5×5 grid.</p>
 
           <ul>
-            <li>Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words.</li>
-            <li>Every letter must work for both its row AND column word.</li>
-            <li>Toggle between <strong>Row</strong> and <strong>Column</strong> mode to submit words.</li>
+            <li data-i18n-html="help.rules.fillGrid">Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words.</li>
+            <li data-i18n="help.rules.letterWorks">Every letter must work for both its row AND column word.</li>
+            <li data-i18n-html="help.rules.toggleMode">Toggle between <strong>Row</strong> and <strong>Column</strong> mode to submit words.</li>
           </ul>
 
-          <h2>Tile Colors</h2>
+          <h2 data-i18n="help.tileColors">Tile Colors</h2>
           <div class="help-example">
             <div class="example-tiles">
               <span class="help-tile correct">A</span>
             </div>
-            <p><strong>Green</strong> — Correct position.</p>
+            <p data-i18n-html="help.green"><strong>Green</strong> — Correct position.</p>
           </div>
           <div class="help-example">
             <div class="example-tiles">
               <span class="help-tile misplaced-both">B</span>
             </div>
-            <p><strong>Yellow</strong> — In both the row and column word, but wrong spot.</p>
+            <p data-i18n-html="help.yellow"><strong>Yellow</strong> — In both the row and column word, but wrong spot.</p>
           </div>
           <div class="help-example">
             <div class="example-tiles">
               <span class="help-tile misplaced-row">C</span>
             </div>
-            <p><strong>Cyan</strong> — In the row word only, but wrong spot.</p>
+            <p data-i18n-html="help.cyan"><strong>Cyan</strong> — In the row word only, but wrong spot.</p>
           </div>
           <div class="help-example">
             <div class="example-tiles">
               <span class="help-tile misplaced-col">D</span>
             </div>
-            <p><strong>Pink</strong> — In the column word only, but wrong spot.</p>
+            <p data-i18n-html="help.pink"><strong>Pink</strong> — In the column word only, but wrong spot.</p>
           </div>
           <div class="help-example">
             <div class="example-tiles">
               <span class="help-tile absent">E</span>
             </div>
-            <p><strong>Gray</strong> — Not in either word.</p>
+            <p data-i18n-html="help.gray"><strong>Gray</strong> — Not in either word.</p>
           </div>
 
-          <h2>Grid Layout</h2>
-          <p>The panels around the grid track your knowledge:</p>
+          <h2 data-i18n="help.gridLayout">Grid Layout</h2>
+          <p data-i18n="help.panelsDescription">The panels around the grid track your knowledge:</p>
           <ul>
-            <li><strong>Left/Right panels</strong> — Misplaced and absent letters for each row.</li>
-            <li><strong>Top/Bottom panels</strong> — Misplaced and absent letters for each column.</li>
+            <li data-i18n-html="help.leftRightPanels"><strong>Left/Right panels</strong> — Misplaced and absent letters for each row.</li>
+            <li data-i18n-html="help.topBottomPanels"><strong>Top/Bottom panels</strong> — Misplaced and absent letters for each column.</li>
           </ul>
 
-          <h2 class="controls-desktop">Controls</h2>
+          <h2 class="controls-desktop" data-i18n="help.controls">Controls</h2>
           <div class="controls-desktop">
-            <h3>Keyboard</h3>
+            <h3 data-i18n="help.keyboard">Keyboard</h3>
             <ul>
-              <li><strong>Arrow keys</strong> — Move cursor.</li>
-              <li><strong>Space</strong> — Toggle Row/Column mode.</li>
-              <li><strong>Enter</strong> — Submit current line.</li>
-              <li><strong>Backspace</strong> — Delete letter.</li>
-              <li><strong>Esc</strong> — Toggle this modal.</li>
+              <li data-i18n-html="help.arrowKeys"><strong>Arrow keys</strong> — Move cursor.</li>
+              <li data-i18n-html="help.space"><strong>Space</strong> — Toggle Row/Column mode.</li>
+              <li data-i18n-html="help.enter"><strong>Enter</strong> — Submit current line.</li>
+              <li data-i18n-html="help.backspace"><strong>Backspace</strong> — Delete letter.</li>
+              <li data-i18n-html="help.escape"><strong>Esc</strong> — Toggle this modal.</li>
             </ul>
-            <h3>Mouse</h3>
+            <h3 data-i18n="help.mouse">Mouse</h3>
             <ul>
-              <li><strong>Click</strong> — Select a cell.</li>
-              <li><strong>Double-click</strong> — Select cell and toggle mode.</li>
+              <li data-i18n-html="help.click"><strong>Click</strong> — Select a cell.</li>
+              <li data-i18n-html="help.doubleClick"><strong>Double-click</strong> — Select cell and toggle mode.</li>
             </ul>
           </div>
 
-          <h2 class="controls-touch">Controls</h2>
+          <h2 class="controls-touch" data-i18n="help.controls">Controls</h2>
           <div class="controls-touch">
             <ul>
-              <li><strong>Tap</strong> — Select a cell.</li>
-              <li><strong>Double-tap</strong> — Select cell and toggle mode.</li>
-              <li>Use the <strong>on-screen keyboard</strong> to type.</li>
+              <li data-i18n-html="help.tap"><strong>Tap</strong> — Select a cell.</li>
+              <li data-i18n-html="help.doubleTap"><strong>Double-tap</strong> — Select cell and toggle mode.</li>
+              <li data-i18n-html="help.useKeyboard">Use the <strong>on-screen keyboard</strong> to type.</li>
             </ul>
           </div>
         </div>

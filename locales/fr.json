@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "code": "fr",
+    "name": "French",
+    "nativeName": "Français"
+  },
+  "homepage": {
+    "subtitle": "Résolvez deux puzzles de mots imbriqués sur une grille 5×5.",
+    "description": "Remplissez chaque <strong>ligne</strong> et <strong>colonne</strong> avec des mots de 5 lettres valides. Chaque lettre doit fonctionner pour son mot de ligne ET de colonne.",
+    "playNow": "Jouer",
+    "selectPuzzle": "Choisir un Puzzle"
+  },
+  "puzzleSelector": {
+    "title": "Choisir un Puzzle"
+  },
+  "game": {
+    "tries": "ESSAIS"
+  },
+  "keyboard": {
+    "enter": "ENTRÉE"
+  },
+  "help": {
+    "title": "Comment Jouer",
+    "subtitle": "Résolvez deux puzzles de mots imbriqués sur une grille 5×5.",
+    "rules": {
+      "fillGrid": "Remplissez chaque <strong>ligne</strong> et <strong>colonne</strong> avec des mots de 5 lettres valides.",
+      "letterWorks": "Chaque lettre doit fonctionner pour son mot de ligne ET de colonne.",
+      "toggleMode": "Basculez entre le mode <strong>Ligne</strong> et <strong>Colonne</strong> pour soumettre des mots."
+    },
+    "tileColors": "Couleurs des Tuiles",
+    "green": "<strong>Vert</strong> — Position correcte.",
+    "yellow": "<strong>Jaune</strong> — Dans le mot de ligne et de colonne, mais mauvaise position.",
+    "cyan": "<strong>Cyan</strong> — Dans le mot de ligne uniquement, mais mauvaise position.",
+    "pink": "<strong>Rose</strong> — Dans le mot de colonne uniquement, mais mauvaise position.",
+    "gray": "<strong>Gris</strong> — Pas dans les deux mots.",
+    "gridLayout": "Disposition de la Grille",
+    "panelsDescription": "Les panneaux autour de la grille suivent vos connaissances :",
+    "leftRightPanels": "<strong>Panneaux gauche/droite</strong> — Lettres mal placées et absentes pour chaque ligne.",
+    "topBottomPanels": "<strong>Panneaux haut/bas</strong> — Lettres mal placées et absentes pour chaque colonne.",
+    "controls": "Contrôles",
+    "keyboard": "Clavier",
+    "arrowKeys": "<strong>Touches fléchées</strong> — Déplacer le curseur.",
+    "space": "<strong>Espace</strong> — Basculer entre mode Ligne/Colonne.",
+    "enter": "<strong>Entrée</strong> — Soumettre la ligne actuelle.",
+    "backspace": "<strong>Retour arrière</strong> — Supprimer une lettre.",
+    "escape": "<strong>Échap</strong> — Ouvrir/fermer cette fenêtre.",
+    "mouse": "Souris",
+    "click": "<strong>Clic</strong> — Sélectionner une cellule.",
+    "doubleClick": "<strong>Double-clic</strong> — Sélectionner et basculer le mode.",
+    "touch": "Tactile",
+    "tap": "<strong>Appui</strong> — Sélectionner une cellule.",
+    "doubleTap": "<strong>Double appui</strong> — Sélectionner et basculer le mode.",
+    "useKeyboard": "Utilisez le <strong>clavier à l'écran</strong> pour taper."
+  },
+  "aria": {
+    "howToPlay": "Comment jouer",
+    "selectLanguage": "Sélectionner la langue",
+    "toggleTheme": "Changer le thème",
+    "close": "Fermer"
+  }
+}
