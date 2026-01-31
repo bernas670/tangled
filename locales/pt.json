@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "code": "pt",
+    "name": "Portuguese",
+    "nativeName": "Português"
+  },
+  "homepage": {
+    "subtitle": "Resolva dois puzzles de palavras interligados numa grelha 5×5.",
+    "description": "Preencha cada <strong>linha</strong> e <strong>coluna</strong> com palavras válidas de 5 letras. Cada letra deve funcionar tanto para a palavra da linha quanto da coluna.",
+    "playNow": "Jogar",
+    "selectPuzzle": "Escolher Puzzle"
+  },
+  "puzzleSelector": {
+    "title": "Escolher um Puzzle"
+  },
+  "game": {
+    "tries": "TENTATIVAS"
+  },
+  "keyboard": {
+    "enter": "ENTER"
+  },
+  "help": {
+    "title": "Como Jogar",
+    "subtitle": "Resolva dois puzzles de palavras interligados numa grelha 5×5.",
+    "rules": {
+      "fillGrid": "Preencha cada <strong>linha</strong> e <strong>coluna</strong> com palavras válidas de 5 letras.",
+      "letterWorks": "Cada letra deve funcionar tanto para a palavra da linha quanto da coluna.",
+      "toggleMode": "Alterne entre o modo <strong>Linha</strong> e <strong>Coluna</strong> para submeter palavras."
+    },
+    "tileColors": "Cores das Peças",
+    "green": "<strong>Verde</strong> — Posição correta.",
+    "yellow": "<strong>Amarelo</strong> — Na palavra da linha e da coluna, mas posição errada.",
+    "cyan": "<strong>Ciano</strong> — Apenas na palavra da linha, mas posição errada.",
+    "pink": "<strong>Rosa</strong> — Apenas na palavra da coluna, mas posição errada.",
+    "gray": "<strong>Cinzento</strong> — Não está em nenhuma das palavras.",
+    "gridLayout": "Disposição da Grelha",
+    "panelsDescription": "Os painéis à volta da grelha registam o seu conhecimento:",
+    "leftRightPanels": "<strong>Painéis esquerdo/direito</strong> — Letras mal posicionadas e ausentes para cada linha.",
+    "topBottomPanels": "<strong>Painéis superior/inferior</strong> — Letras mal posicionadas e ausentes para cada coluna.",
+    "controls": "Controlos",
+    "keyboard": "Teclado",
+    "arrowKeys": "<strong>Setas</strong> — Mover cursor.",
+    "space": "<strong>Espaço</strong> — Alternar modo Linha/Coluna.",
+    "enter": "<strong>Enter</strong> — Submeter linha atual.",
+    "backspace": "<strong>Backspace</strong> — Apagar letra.",
+    "escape": "<strong>Esc</strong> — Abrir/fechar esta janela.",
+    "mouse": "Rato",
+    "click": "<strong>Clique</strong> — Selecionar célula.",
+    "doubleClick": "<strong>Duplo clique</strong> — Selecionar e alternar modo.",
+    "touch": "Toque",
+    "tap": "<strong>Toque</strong> — Selecionar célula.",
+    "doubleTap": "<strong>Duplo toque</strong> — Selecionar e alternar modo.",
+    "useKeyboard": "Use o <strong>teclado no ecrã</strong> para escrever."
+  },
+  "aria": {
+    "howToPlay": "Como jogar",
+    "selectLanguage": "Selecionar idioma",
+    "toggleTheme": "Alternar tema",
+    "close": "Fechar"
+  }
+}
