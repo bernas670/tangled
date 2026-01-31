@@ -72,3 +72,27 @@ function toggleTheme() {
 
 // Button click
 toggleBtn.addEventListener("click", toggleTheme);
+
+// Help modal
+const helpBtn = document.getElementById("help-btn");
+const helpModal = document.getElementById("help-modal");
+const modalClose = helpModal?.querySelector(".modal-close");
+const modalBackdrop = helpModal?.querySelector(".modal-backdrop");
+
+function openHelpModal() {
+  helpModal?.removeAttribute("hidden");
+}
+
+function closeHelpModal() {
+  helpModal?.setAttribute("hidden", "");
+}
+
+helpBtn?.addEventListener("click", openHelpModal);
+modalClose?.addEventListener("click", closeHelpModal);
+modalBackdrop?.addEventListener("click", closeHelpModal);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && helpModal && !helpModal.hasAttribute("hidden")) {
+    closeHelpModal();
+  }
+});
