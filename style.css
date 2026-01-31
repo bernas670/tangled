@@ -13,7 +13,7 @@
   --cell-misplaced-col: #d46b9b;     /* soft magenta / pink */
 }
 
-body.dark {
+html.dark {
   --bg-color: #1e1e1e;
   --text-color: #fff;
   --cell-border: #555;
@@ -39,7 +39,7 @@ body {
   display: flex;
   justify-content: center;
   margin: 0;
-  padding-top: 40px;
+  padding-top: 56px;
   background: var(--bg-color);
   color: var(--text-color);
   transition: background 0.3s, color 0.3s;
@@ -166,11 +166,60 @@ body {
   background: var(--cell-absent) !important;
 }
 
-#theme-toggle {
+/* Header */
+#header {
   position: fixed;
-  top: 16px;
-  right: 16px;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
   z-index: 100;
+}
+
+#theme-toggle {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+#theme-toggle:hover {
+  background: var(--highlight-bg);
+}
+
+#theme-toggle .icon-moon {
+  display: none;
+}
+
+html.dark #theme-toggle .icon-sun {
+  display: none;
+}
+
+html.dark #theme-toggle .icon-moon {
+  display: block;
+}
+
+.logo-cell {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--cell-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  user-select: none;
 }
 
 /* On-screen keyboard */
@@ -220,7 +269,12 @@ body {
 /* Mobile responsive styles */
 @media (max-width: 600px) {
   body {
-    padding-top: 50px;
+    padding-top: 56px;
+  }
+
+  #header {
+    height: 48px;
+    padding: 0 12px;
   }
 
   #keyboard {
@@ -229,7 +283,6 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--bg-color);
     padding: 8px 4px;
     padding-bottom: max(8px, env(safe-area-inset-bottom));
     max-width: none;
@@ -265,11 +318,15 @@ body {
     font-size: 22px;
   }
 
-  #theme-toggle {
-    top: 8px;
-    right: 8px;
-    font-size: 12px;
-    padding: 4px 8px;
+  .logo-cell {
+    width: 32px;
+    height: 32px;
+    font-size: 18px;
+  }
+
+  #theme-toggle svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
@@ -281,7 +338,6 @@ body {
     bottom: 0;
     left: 0;
     right: 0;
-    background: var(--bg-color);
     padding: 8px 4px;
     padding-bottom: max(8px, env(safe-area-inset-bottom));
     max-width: none;
@@ -289,6 +345,181 @@ body {
 
   #game-container {
     padding-bottom: 220px;
+  }
+}
+
+/* Header buttons */
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#help-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+#help-btn:hover {
+  background: var(--highlight-bg);
+}
+
+/* Help Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal[hidden] {
+  display: none;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  position: relative;
+  background: var(--bg-color);
+  color: var(--text-color);
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 500px;
+  width: calc(100% - 32px);
+  max-height: calc(100vh - 64px);
+  max-height: calc(100dvh - 64px);
+  overflow-y: auto;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+}
+
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--text-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.modal-close:hover {
+  background: var(--highlight-bg);
+}
+
+.modal-content h1 {
+  margin: 0 0 4px 0;
+  font-size: 28px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+.modal-content .subtitle {
+  margin: 0 0 16px 0;
+  opacity: 0.8;
+  font-size: 16px;
+}
+
+.modal-content h2 {
+  margin: 20px 0 12px 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.modal-content ul {
+  margin: 0 0 8px 0;
+  padding-left: 24px;
+}
+
+.modal-content li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+.modal-content p {
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+/* Help examples with tiles */
+.help-example {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.example-tiles {
+  display: flex;
+  gap: 4px;
+}
+
+.help-tile {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--cell-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.help-example p {
+  margin: 0;
+  flex: 1;
+}
+
+/* Device-specific controls visibility */
+.controls-desktop {
+  display: block;
+}
+
+.controls-touch {
+  display: none;
+}
+
+@media (pointer: coarse) {
+  .controls-desktop {
+    display: none;
+  }
+
+  .controls-touch {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 20px 16px;
+  }
+
+  .modal-content h1 {
+    font-size: 24px;
+  }
+
+  #help-btn svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
