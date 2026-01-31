@@ -92,8 +92,7 @@ export const colAbsentElements = createKnowledgeElements({
 const KEYBOARD_ROWS = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
   ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-  ["MODE", "Z", "X", "C", "V", "B", "N", "M", "⌫"],
-  ["ENTER"],
+  ["ENTER", "Z", "X", "C", "V", "B", "N", "M", "⌫"],
 ];
 
 const createKeyboard = (): Map<string, HTMLElement> => {
@@ -108,15 +107,12 @@ const createKeyboard = (): Map<string, HTMLElement> => {
       keyElement.className = "keyboard-key";
       keyElement.dataset.key = key;
 
-      if (key === "MODE") {
-        keyElement.classList.add("wide", "mode-toggle", "row-mode");
+      if (key === "ENTER") {
+        keyElement.textContent = "ENTER";
+        keyElement.classList.add("wide");
       } else if (key === "⌫") {
         keyElement.textContent = "⌫";
         keyElement.classList.add("wide");
-      } else if (key === "ENTER") {
-        keyElement.textContent = "ENTER";
-        keyElement.style.maxWidth = "100%";
-        keyElement.style.flex = "1";
       } else {
         keyElement.textContent = key;
       }

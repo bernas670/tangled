@@ -38,15 +38,6 @@ const shakeInvalidWord = (state: State): void => {
 
 const toggleMode = (state: State): void => {
   state.mode = state.mode === Mode.Row ? Mode.Col : Mode.Row;
-  updateModeButton(state);
-};
-
-const updateModeButton = (state: State): void => {
-  const modeButton = keyboardKeys.get("MODE");
-  if (modeButton) {
-    modeButton.classList.toggle("row-mode", state.mode === Mode.Row);
-    modeButton.classList.toggle("col-mode", state.mode === Mode.Col);
-  }
 };
 
 const moveCursor = (
@@ -176,9 +167,6 @@ export const setupInputHandlers = (state: State): void => {
   // On-screen keyboard handlers
   const handleKeyboardKey = (key: string): void => {
     switch (key) {
-      case "MODE":
-        toggleMode(state);
-        break;
       case "⌫":
         handleBackspace(state);
         break;
