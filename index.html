@@ -10,7 +10,7 @@
         document.documentElement.classList.add("dark");
       }
     </script>
-    <script type="module" crossorigin src="/tangled/assets/index-BNPogpvP.js"></script>
+    <script type="module" crossorigin src="/tangled/assets/index-BIlrzUr1.js"></script>
   </head>
   <body>
     <header id="header">
@@ -51,18 +51,27 @@
           <p class="homepage-subtitle">Solve two interlocking word puzzles on a 5×5 grid.</p>
         </div>
 
+        <div id="mini-grid" class="mini-grid"></div>
+
         <div class="homepage-description">
           <p>Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words. Every letter must work for both its row AND column word.</p>
         </div>
 
-        <button id="play-now-btn" class="primary-btn">Play Now</button>
-
-        <div class="puzzle-selector">
-          <h2>Select a Puzzle</h2>
-          <div id="puzzle-grid" class="puzzle-grid">
-            <!-- Puzzles will be populated by JavaScript -->
-          </div>
+        <div class="homepage-buttons">
+          <button id="play-now-btn" class="primary-btn">Play Now</button>
+          <button id="select-puzzle-btn" class="secondary-btn">Select Puzzle</button>
         </div>
+      </div>
+    </div>
+
+    <!-- Puzzle Selector Screen -->
+    <div id="puzzle-selector-screen" hidden>
+      <div class="puzzle-selector-header">
+        <button id="back-to-home-btn" class="back-btn">&larr;</button>
+        <h1>Select a Puzzle</h1>
+      </div>
+      <div id="puzzle-grid" class="puzzle-grid">
+        <!-- Populated by JS -->
       </div>
     </div>
 
@@ -130,6 +139,7 @@
               <li><strong>Space</strong> — Toggle Row/Column mode.</li>
               <li><strong>Enter</strong> — Submit current line.</li>
               <li><strong>Backspace</strong> — Delete letter.</li>
+              <li><strong>Esc</strong> — Toggle this modal.</li>
             </ul>
             <h3>Mouse</h3>
             <ul>
