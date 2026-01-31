@@ -21,6 +21,7 @@ html.dark {
   --highlight-border: #77aaff;
   --cursor-bg: #4466cc;
 
+  --cell-absent: #38393a;
   --cell-misplaced-both: #d6c55a;
   --cell-misplaced-row: #4fc2c2;
   --cell-misplaced-col: #e48ab2;

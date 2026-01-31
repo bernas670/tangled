@@ -103,7 +103,11 @@ modalClose?.addEventListener("click", closeHelpModal);
 modalBackdrop?.addEventListener("click", closeHelpModal);
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && helpModal && !helpModal.hasAttribute("hidden")) {
-    closeHelpModal();
+  if (e.key === "Escape" && helpModal) {
+    if (helpModal.hasAttribute("hidden")) {
+      openHelpModal();
+    } else {
+      closeHelpModal();
+    }
   }
 });
