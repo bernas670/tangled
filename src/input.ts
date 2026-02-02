@@ -7,7 +7,11 @@ import { shakeCells, animateCorrectLetter, animateCorrectLine, celebratePuzzleCo
 import { getCurrentPuzzleIndex } from "./puzzle";
 import { markPuzzleSolved } from "./storage";
 import { getCurrentLanguage } from "./i18n";
-import { showCompletionBanner } from "./main";
+
+const showCompletionBanner = (): void => {
+  const banner = document.getElementById("completion-banner");
+  banner?.removeAttribute("hidden");
+};
 
 const getLineCells = (state: State): HTMLElement[] =>
   state.mode === Mode.Row

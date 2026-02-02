@@ -7,7 +7,6 @@ words: https://gist.github.com/dracos/dd0668f281e685bad51479e5acaadb93
     - knowledge cells are too large and only stay in one row or col
     - add feedback to keyboard (change color on click/vibrate if supported maybe)
  - ui not working in mdpi laptop
- - on completion prompt user to play another puzzle
  - transpose the grid when pressing space?
 
 # Ideas

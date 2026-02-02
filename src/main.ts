@@ -15,6 +15,7 @@ const puzzleSelectorScreen = document.getElementById("puzzle-selector-screen");
 const playNowBtn = document.getElementById("play-now-btn");
 const selectPuzzleBtn = document.getElementById("select-puzzle-btn");
 const backToHomeBtn = document.getElementById("back-to-home-btn");
+const randomPuzzleBtn = document.getElementById("random-puzzle-btn");
 const miniGrid = document.getElementById("mini-grid");
 const helpModal = document.getElementById("help-modal");
 const helpBtn = document.getElementById("help-btn");
@@ -254,10 +255,6 @@ const updatePuzzleNumber = (index: number): void => {
   }
 };
 
-export const showCompletionBanner = (): void => {
-  completionBanner?.removeAttribute("hidden");
-};
-
 const hideCompletionBanner = (): void => {
   completionBanner?.setAttribute("hidden", "");
 };
@@ -451,7 +448,10 @@ const initApp = async () => {
   // Setup homepage event listeners
   playNowBtn?.addEventListener("click", startTodaysPuzzle);
   selectPuzzleBtn?.addEventListener("click", showPuzzleSelector);
+
+  // Setup puzzle selector event listeners
   backToHomeBtn?.addEventListener("click", showHomepage);
+  randomPuzzleBtn?.addEventListener("click", startRandomPuzzle);
 
   // Setup calendar navigation
   calendarPrev?.addEventListener("click", () => navigateCalendar(-1));

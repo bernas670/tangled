@@ -69,16 +69,13 @@
         </div>
       </div>
       <footer class="homepage-footer">
-        made by <a href="https://github.com/bernas670" target="_blank" rel="noopener">bernas</a> • <a href="https://github.com/bernas670/tangled" target="_blank" rel="noopener">source</a>
+        made by <a href="https://github.com/bernas670" target="_blank" rel="noopener">bernas</a> • <a href="https://github.com/bernas670/tangled" target="_blank" rel="noopener">source</a> • <a href="https://github.com/bernas670/tangled/issues/new?template=bug_report.md" target="_blank" rel="noopener">report a bug</a>
       </footer>
     </div>
 
     <!-- Puzzle Selector Screen -->
     <div id="puzzle-selector-screen" hidden>
-      <div class="puzzle-selector-header">
-        <button id="back-to-home-btn" class="back-btn">&larr;</button>
-        <h1 data-i18n="puzzleSelector.title">Select a Puzzle</h1>
-      </div>
+      <h1 class="puzzle-selector-title" data-i18n="puzzleSelector.title">Select a Puzzle</h1>
       <div class="calendar">
         <div class="calendar-header">
           <button id="calendar-prev" class="calendar-nav">&larr;</button>
@@ -91,6 +88,10 @@
         <div id="calendar-days" class="calendar-days">
           <!-- Populated by JS -->
         </div>
+      </div>
+      <div class="puzzle-selector-buttons">
+        <button id="random-puzzle-btn" class="primary-btn" data-i18n="puzzleSelector.randomPuzzle">Random Puzzle</button>
+        <button id="back-to-home-btn" class="secondary-btn" data-i18n="puzzleSelector.goBack">Go Back</button>
       </div>
     </div>
 

@@ -12,7 +12,9 @@
     "selectPuzzle": "Choisir un Puzzle"
   },
   "puzzleSelector": {
-    "title": "Choisir un Puzzle"
+    "title": "Choisir un Puzzle",
+    "randomPuzzle": "Puzzle Aléatoire",
+    "goBack": "Retour"
   },
   "calendar": {
     "months": ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
