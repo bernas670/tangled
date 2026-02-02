@@ -8,13 +8,22 @@
     "subtitle": "Résolvez deux puzzles de mots imbriqués sur une grille 5×5.",
     "description": "Remplissez chaque <strong>ligne</strong> et <strong>colonne</strong> avec des mots de 5 lettres valides. Chaque lettre doit fonctionner pour son mot de ligne ET de colonne.",
     "playNow": "Jouer",
+    "randomPuzzle": "Puzzle Aléatoire",
     "selectPuzzle": "Choisir un Puzzle"
   },
   "puzzleSelector": {
-    "title": "Choisir un Puzzle"
+    "title": "Choisir un Puzzle",
+    "randomPuzzle": "Puzzle Aléatoire",
+    "goBack": "Retour"
+  },
+  "calendar": {
+    "months": ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
+    "weekdays": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
   },
   "game": {
-    "tries": "ESSAIS"
+    "tries": "ESSAIS",
+    "completed": "Puzzle terminé !",
+    "playNext": "Suivant"
   },
   "keyboard": {
     "enter": "ENTRÉE"

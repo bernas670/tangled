@@ -10,7 +10,7 @@
         document.documentElement.classList.add("dark");
       }
     </script>
-    <script type="module" crossorigin src="/tangled/assets/index-CftKuLR_.js"></script>
+    <script type="module" crossorigin src="/tangled/assets/index-CbjC5V26.js"></script>
   </head>
   <body>
     <header id="header">
@@ -70,18 +70,29 @@
         </div>
       </div>
       <footer class="homepage-footer">
-        made by <a href="https://github.com/bernas670" target="_blank" rel="noopener">bernas</a> • <a href="https://github.com/bernas670/tangled" target="_blank" rel="noopener">source</a>
+        made by <a href="https://github.com/bernas670" target="_blank" rel="noopener">bernas</a> • <a href="https://github.com/bernas670/tangled" target="_blank" rel="noopener">source</a> • <a href="https://github.com/bernas670/tangled/issues/new?template=bug_report.md" target="_blank" rel="noopener">report a bug</a>
       </footer>
     </div>
 
     <!-- Puzzle Selector Screen -->
     <div id="puzzle-selector-screen" hidden>
-      <div class="puzzle-selector-header">
-        <button id="back-to-home-btn" class="back-btn">&larr;</button>
-        <h1 data-i18n="puzzleSelector.title">Select a Puzzle</h1>
+      <h1 class="puzzle-selector-title" data-i18n="puzzleSelector.title">Select a Puzzle</h1>
+      <div class="calendar">
+        <div class="calendar-header">
+          <button id="calendar-prev" class="calendar-nav">&larr;</button>
+          <span id="calendar-month-year" class="calendar-month-year"></span>
+          <button id="calendar-next" class="calendar-nav">&rarr;</button>
+        </div>
+        <div class="calendar-weekdays" id="calendar-weekdays">
+          <!-- Populated by JS -->
+        </div>
+        <div id="calendar-days" class="calendar-days">
+          <!-- Populated by JS -->
+        </div>
       </div>
-      <div id="puzzle-grid" class="puzzle-grid">
-        <!-- Populated by JS -->
+      <div class="puzzle-selector-buttons">
+        <button id="random-puzzle-btn" class="primary-btn" data-i18n="puzzleSelector.randomPuzzle">Random Puzzle</button>
+        <button id="back-to-home-btn" class="secondary-btn" data-i18n="puzzleSelector.goBack">Go Back</button>
       </div>
     </div>
 
@@ -171,6 +182,10 @@
     </div>
     <div id="game-container" hidden>
       <div id="board"></div>
+      <div id="completion-banner" class="completion-banner" hidden>
+        <span id="completion-message" data-i18n="game.completed">Puzzle completed!</span>
+        <button id="play-next-btn" class="play-next-btn" data-i18n="game.playNext">Play Next</button>
+      </div>
       <div id="keyboard"></div>
     </div>
 

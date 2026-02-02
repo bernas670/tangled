@@ -62,6 +62,49 @@ body {
   display: none;
 }
 
+/* Completion banner */
+.completion-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 20px;
+  background: var(--cell-correct);
+  color: #fff;
+  font-weight: bold;
+  animation: slideIn 0.3s ease-out;
+}
+
+.completion-banner[hidden] {
+  display: none;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.play-next-btn {
+  background: #fff;
+  color: var(--cell-correct);
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.play-next-btn:hover {
+  opacity: 0.9;
+}
+
 #board {
   display: grid;
   grid-template-columns: 140px repeat(5, 60px) 140px;
@@ -342,6 +385,18 @@ html.dark #theme-toggle .icon-moon {
 
   .tries-count {
     font-size: 22px;
+  }
+
+  .completion-banner {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .play-next-btn {
+    padding: 6px 14px;
+    font-size: 13px;
   }
 
   .logo-cell {
@@ -782,22 +837,47 @@ html.dark #theme-toggle .icon-moon {
   display: none;
 }
 
-.puzzle-selector-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 24px;
+.puzzle-selector-title {
+  margin: 0 0 24px 0;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
 
-.puzzle-selector-header h1 {
-  margin: 0;
-  font-size: 24px;
+.puzzle-selector-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 350px;
+  margin-top: 24px;
+}
+
+.puzzle-selector-buttons .primary-btn,
+.puzzle-selector-buttons .secondary-btn {
+  width: 100%;
+  padding: 14px 24px;
+}
+
+/* Calendar */
+.calendar {
+  width: 100%;
+  max-width: 350px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-month-year {
+  font-size: 18px;
   font-weight: bold;
 }
 
-.back-btn {
+.calendar-nav {
   background: transparent;
   border: 2px solid var(--cell-border);
   color: var(--text-color);
@@ -807,31 +887,48 @@ html.dark #theme-toggle .icon-moon {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 18px;
   transition: background 0.2s, border-color 0.2s;
-  flex-shrink: 0;
 }
 
-.back-btn:hover {
+.calendar-nav:hover:not(:disabled) {
   background: var(--highlight-bg);
   border-color: var(--highlight-border);
 }
 
-.puzzle-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
-  gap: 8px;
-  max-width: 300px;
-  margin: 0 auto;
+.calendar-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
-.puzzle-item {
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.6;
+  padding: 8px 0;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day {
   aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 2px solid var(--cell-border);
-  font-size: 18px;
+  font-size: 16px;
   font-weight: bold;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
@@ -839,19 +936,52 @@ html.dark #theme-toggle .icon-moon {
   color: var(--text-color);
 }
 
-.puzzle-item:hover {
+.calendar-day:hover:not(:disabled):not(.calendar-day-empty) {
   background: var(--highlight-bg);
   border-color: var(--highlight-border);
 }
 
-.puzzle-item.solved {
-  background: var(--primary-color, var(--cell-correct));
-  color: #fff;
-  border-color: var(--primary-color, var(--cell-correct));
+.calendar-day-empty {
+  border-color: transparent;
+  cursor: default;
 }
 
-.puzzle-item.solved:hover {
+.calendar-day-today {
+  border-color: var(--highlight-border);
+  box-shadow: 0 0 0 1px var(--highlight-border);
+}
+
+/* Solved on release day - green */
+.calendar-day.solved-on-day {
+  background: var(--cell-correct);
+  color: #fff;
+  border-color: var(--cell-correct);
+}
+
+.calendar-day.solved-on-day:hover:not(:disabled) {
   opacity: 0.9;
+}
+
+/* Solved on a different day - purple/pink */
+.calendar-day.solved-later {
+  background: var(--cell-misplaced-col);
+  color: #fff;
+  border-color: var(--cell-misplaced-col);
+}
+
+.calendar-day.solved-later:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Future or before start - locked */
+.calendar-day.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.calendar-day.locked:hover {
+  background: var(--bg-color);
+  border-color: var(--cell-border);
 }
 
 @media (max-width: 600px) {
@@ -891,15 +1021,29 @@ html.dark #theme-toggle .icon-moon {
     width: 100%;
   }
 
-  .puzzle-selector-header h1 {
+  .puzzle-selector-title {
     font-size: 20px;
   }
 
-  .puzzle-grid {
-    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+  .calendar {
+    max-width: 100%;
   }
 
-  .puzzle-item {
+  .calendar-day {
+    font-size: 14px;
+  }
+
+  .calendar-weekday {
+    font-size: 11px;
+  }
+
+  .calendar-month-year {
+    font-size: 16px;
+  }
+
+  .calendar-nav {
+    width: 36px;
+    height: 36px;
     font-size: 16px;
   }
 }
