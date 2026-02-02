@@ -1,3 +1,5 @@
+import { getTodayISO, wasSolvedOnReleaseDay as checkWasSolvedOnReleaseDay } from "./daily";
+
 const STORAGE_KEYS = {
   SOLVED_PUZZLES: "tangled_solved_puzzles",
   HAS_PLAYED: "tangled_has_played",
@@ -5,9 +7,13 @@ const STORAGE_KEYS = {
   VERSION: "tangled_storage_version",
 };
 
-const CURRENT_VERSION = 1;
+const CURRENT_VERSION = 2;
 
-type SolvedPuzzlesByLanguage = Record<string, number[]>;
+// New format: { "en": { "0": "2026-02-01", "2": "2026-02-05" } } (index -> solve date)
+type SolvedPuzzlesByLanguage = Record<string, Record<string, string>>;
+
+// Old v1 format: { "en": [0, 2, 5] } (array of indices)
+type OldV1Format = Record<string, number[]>;
 
 type Migration = {
   fromVersion: number;
@@ -30,9 +36,47 @@ const migrations: Migration[] = [
           if (Array.isArray(oldPuzzles) && oldPuzzles.length > 0) {
             // Get the language the user was playing in (or default to 'en')
             const language = localStorage.getItem(STORAGE_KEYS.LANGUAGE) || "en";
-            const newData: SolvedPuzzlesByLanguage = {
+            const newData: OldV1Format = {
               [language]: oldPuzzles,
             };
+            localStorage.setItem(STORAGE_KEYS.SOLVED_PUZZLES, JSON.stringify(newData));
+          }
+        }
+      } catch {
+        // If migration fails, clear corrupted data
+        localStorage.removeItem(STORAGE_KEYS.SOLVED_PUZZLES);
+      }
+    },
+  },
+  {
+    fromVersion: 1,
+    toVersion: 2,
+    migrate: () => {
+      // Migrate from array format to object with solve dates
+      // Old format: { "en": [0, 2, 5] } - array of indices
+      // New format: { "en": { "0": "2026-02-01", "2": "2026-02-05" } } - index -> solve date
+      // Since we don't know when puzzles were originally solved, mark them with a placeholder date
+      // We'll use "unknown" as a special marker for migrated puzzles
+      try {
+        const oldData = localStorage.getItem(STORAGE_KEYS.SOLVED_PUZZLES);
+        if (oldData) {
+          const parsed = JSON.parse(oldData);
+          // Check if it's the old v1 format (values are arrays)
+          if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+            const newData: SolvedPuzzlesByLanguage = {};
+            for (const [lang, indices] of Object.entries(parsed)) {
+              if (Array.isArray(indices)) {
+                newData[lang] = {};
+                for (const index of indices as number[]) {
+                  // Mark migrated puzzles with "unknown" since we don't know the original solve date
+                  // These will be treated as "solved later" since they won't match release dates
+                  newData[lang][String(index)] = "unknown";
+                }
+              } else if (typeof indices === "object") {
+                // Already in new format, keep as-is
+                newData[lang] = indices as Record<string, string>;
+              }
+            }
             localStorage.setItem(STORAGE_KEYS.SOLVED_PUZZLES, JSON.stringify(newData));
           }
         }
@@ -90,19 +134,39 @@ const getAllSolvedPuzzles = (): SolvedPuzzlesByLanguage => {
 
 export const getSolvedPuzzles = (language: string): Set<number> => {
   const allSolved = getAllSolvedPuzzles();
-  return new Set(allSolved[language] || []);
+  const languageSolved = allSolved[language] || {};
+  return new Set(Object.keys(languageSolved).map(Number));
 };
 
 export const markPuzzleSolved = (language: string, puzzleIndex: number): void => {
   const allSolved = getAllSolvedPuzzles();
-  const languageSolved = new Set(allSolved[language] || []);
-  languageSolved.add(puzzleIndex);
-  allSolved[language] = [...languageSolved];
+  if (!allSolved[language]) {
+    allSolved[language] = {};
+  }
+  // Only mark as solved if not already solved (preserve original solve date)
+  if (!allSolved[language][String(puzzleIndex)]) {
+    allSolved[language][String(puzzleIndex)] = getTodayISO();
+  }
   localStorage.setItem(STORAGE_KEYS.SOLVED_PUZZLES, JSON.stringify(allSolved));
 };
 
 export const isPuzzleSolved = (language: string, puzzleIndex: number): boolean => {
   return getSolvedPuzzles(language).has(puzzleIndex);
+};
+
+export const getPuzzleSolveDate = (language: string, puzzleIndex: number): string | null => {
+  const allSolved = getAllSolvedPuzzles();
+  const languageSolved = allSolved[language] || {};
+  return languageSolved[String(puzzleIndex)] || null;
+};
+
+export const wasSolvedOnReleaseDay = (language: string, puzzleIndex: number): boolean => {
+  const solveDate = getPuzzleSolveDate(language, puzzleIndex);
+  if (!solveDate || solveDate === "unknown") {
+    // Migrated puzzles with unknown dates are treated as "solved later"
+    return false;
+  }
+  return checkWasSolvedOnReleaseDay(puzzleIndex, solveDate);
 };
 
 export const hasPlayedBefore = (): boolean => {

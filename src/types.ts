@@ -39,5 +39,6 @@ export type State = {
     row: number[];
     col: number[];
   };
+  completed: boolean;
 };
 

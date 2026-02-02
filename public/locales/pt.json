@@ -8,13 +8,20 @@
     "subtitle": "Resolva dois puzzles de palavras interligados numa grelha 5×5.",
     "description": "Preencha cada <strong>linha</strong> e <strong>coluna</strong> com palavras válidas de 5 letras. Cada letra deve funcionar tanto para a palavra da linha quanto da coluna.",
     "playNow": "Jogar",
+    "randomPuzzle": "Puzzle Aleatório",
     "selectPuzzle": "Escolher Puzzle"
   },
   "puzzleSelector": {
     "title": "Escolher um Puzzle"
   },
+  "calendar": {
+    "months": ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+    "weekdays": ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
+  },
   "game": {
-    "tries": "TENTATIVAS"
+    "tries": "TENTATIVAS",
+    "completed": "Puzzle concluído!",
+    "playNext": "Próximo"
   },
   "keyboard": {
     "enter": "ENTER"

@@ -8,13 +8,20 @@
     "subtitle": "Solve two interlocking word puzzles on a 5×5 grid.",
     "description": "Fill each <strong>row</strong> and <strong>column</strong> with valid 5-letter words. Every letter must work for both its row AND column word.",
     "playNow": "Play Now",
+    "randomPuzzle": "Random Puzzle",
     "selectPuzzle": "Select Puzzle"
   },
   "puzzleSelector": {
     "title": "Select a Puzzle"
   },
+  "calendar": {
+    "months": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+    "weekdays": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
+  },
   "game": {
-    "tries": "TRIES"
+    "tries": "TRIES",
+    "completed": "Puzzle completed!",
+    "playNext": "Play Next"
   },
   "keyboard": {
     "enter": "ENTER"

@@ -108,15 +108,22 @@ export const submitLine = (state: State): SubmitResult => {
     updateCellState(state, cell, row, col);
   });
 
-  // Increment tries for the current line
-  if (mode === Mode.Row) {
-    state.tries.row[cursor.row]++;
-  } else {
-    state.tries.col[cursor.col]++;
+  // Only increment tries if puzzle is not already complete
+  if (!state.completed) {
+    if (mode === Mode.Row) {
+      state.tries.row[cursor.row]++;
+    } else {
+      state.tries.col[cursor.col]++;
+    }
   }
 
   const lineComplete = line.every((cell) => cell.state === CellState.Correct);
   const puzzleComplete = grid.every((row) => row.every((cell) => cell.state === CellState.Correct));
+
+  // Mark puzzle as completed
+  if (puzzleComplete) {
+    state.completed = true;
+  }
 
   return { success: true, newlyCorrect, lineComplete, puzzleComplete };
 };

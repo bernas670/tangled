@@ -20,6 +20,7 @@ export const createInitialState = (): State => ({
     row: Array.from({ length: SIZE }, () => 0),
     col: Array.from({ length: SIZE }, () => 0),
   },
+  completed: false,
 });
 
 export const state: State = createInitialState();
@@ -31,4 +32,5 @@ export const resetState = (s: State): void => {
   s.grid = fresh.grid;
   s.knowledge = fresh.knowledge;
   s.tries = fresh.tries;
+  s.completed = fresh.completed;
 };

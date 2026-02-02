@@ -26,7 +26,7 @@ export const loadTranslations = async (lang: string): Promise<void> => {
   translations = await response.json();
 };
 
-export const t = (key: string): string => {
+const getTranslationValue = (key: string): unknown => {
   const keys = key.split(".");
   let value: unknown = translations;
 
@@ -34,11 +34,21 @@ export const t = (key: string): string => {
     if (value && typeof value === "object" && k in value) {
       value = (value as Record<string, unknown>)[k];
     } else {
-      return key; // Return key as fallback
+      return undefined;
     }
   }
 
+  return value;
+};
+
+export const t = (key: string): string => {
+  const value = getTranslationValue(key);
   return typeof value === "string" ? value : key;
+};
+
+export const tArray = (key: string): string[] => {
+  const value = getTranslationValue(key);
+  return Array.isArray(value) ? value : [];
 };
 
 export const detectBrowserLanguage = (): string => {

@@ -7,6 +7,8 @@ words: https://gist.github.com/dracos/dd0668f281e685bad51479e5acaadb93
     - knowledge cells are too large and only stay in one row or col
     - add feedback to keyboard (change color on click/vibrate if supported maybe)
  - ui not working in mdpi laptop
+ - on completion prompt user to play another puzzle
+ - transpose the grid when pressing space?
 
 # Ideas
   - word pokedex 
@@ -17,12 +19,7 @@ words: https://gist.github.com/dracos/dd0668f281e685bad51479e5acaadb93
     - when clicking on the word the definition pops down
   - bug report
     - mechanism to report bugs directly to github issue
-  - homepage
-    - add image
-    - move selected puzzles to a separate screen
-    - "select puzzle" on the left and "play now" on the right
   - ui
     - improve color scheme (absent color should show better that its disabled)
-  - languages
-    - add support for portuguese
-    - add support for multiple languages?
+    - when hovering a cell in the knowledge, show the places where the letter can/cannot be
+      according to the knowledge the user has, on that row/col

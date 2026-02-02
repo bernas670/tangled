@@ -7,6 +7,7 @@ import { shakeCells, animateCorrectLetter, animateCorrectLine, celebratePuzzleCo
 import { getCurrentPuzzleIndex } from "./puzzle";
 import { markPuzzleSolved } from "./storage";
 import { getCurrentLanguage } from "./i18n";
+import { showCompletionBanner } from "./main";
 
 const getLineCells = (state: State): HTMLElement[] =>
   state.mode === Mode.Row
@@ -96,6 +97,8 @@ export const setupInputHandlers = (state: State): void => {
         } else if (result.puzzleComplete) {
           markPuzzleSolved(getCurrentLanguage(), getCurrentPuzzleIndex());
           celebratePuzzleComplete(cells);
+          // Show completion banner after a short delay for the animation
+          setTimeout(showCompletionBanner, 500);
         } else if (result.lineComplete) {
           const lineCells = getLineCells(state);
           animateCorrectLine(lineCells);
@@ -168,6 +171,8 @@ export const setupInputHandlers = (state: State): void => {
         } else if (result.puzzleComplete) {
           markPuzzleSolved(getCurrentLanguage(), getCurrentPuzzleIndex());
           celebratePuzzleComplete(cells);
+          // Show completion banner after a short delay for the animation
+          setTimeout(showCompletionBanner, 500);
         } else if (result.lineComplete) {
           const lineCells = getLineCells(state);
           animateCorrectLine(lineCells);
