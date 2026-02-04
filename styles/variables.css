@@ -1,0 +1,28 @@
+:root {
+  --bg-color: #fff;
+  --text-color: #000;
+  --cell-border: #ccc;
+  --highlight-bg: #e0f0ff;
+  --highlight-border: #3399ff;
+  --cursor-bg: #99ccff;
+
+  --cell-correct: #6aaa64;
+  --cell-absent: #787c7e;
+  --cell-misplaced-both: #c9b458;
+  --cell-misplaced-row: #3fa9a9;
+  --cell-misplaced-col: #d46b9b;
+}
+
+html.dark {
+  --bg-color: #1e1e1e;
+  --text-color: #fff;
+  --cell-border: #555;
+  --highlight-bg: #333366;
+  --highlight-border: #77aaff;
+  --cursor-bg: #4466cc;
+
+  --cell-absent: #38393a;
+  --cell-misplaced-both: #d6c55a;
+  --cell-misplaced-row: #4fc2c2;
+  --cell-misplaced-col: #e48ab2;
+}

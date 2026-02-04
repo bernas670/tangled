@@ -1,0 +1,90 @@
+#homepage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px 16px;
+}
+
+#homepage[hidden] {
+  display: none;
+}
+
+.homepage-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+}
+
+.homepage-hero {
+  text-align: center;
+}
+
+.homepage-title {
+  font-size: 48px;
+  font-weight: bold;
+  font-style: italic;
+  margin: 0 0 8px 0;
+}
+
+.homepage-subtitle {
+  font-size: 18px;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.homepage-description {
+  text-align: center;
+  max-width: 400px;
+  line-height: 1.5;
+}
+
+.homepage-description p {
+  margin: 0;
+}
+
+.homepage-footer {
+  margin-top: auto;
+  padding-top: 32px;
+  font-size: 14px;
+  opacity: 0.6;
+  font-family: ui-monospace, monospace;
+}
+
+.homepage-footer a {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.homepage-footer a:hover {
+  text-decoration: underline;
+}
+
+.homepage-buttons {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-direction: row-reverse;
+}
+
+/* Mini grid for autoplay demo */
+.mini-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 36px);
+  grid-template-rows: repeat(5, 36px);
+  gap: 4px;
+}
+
+.mini-cell {
+  border: 2px solid var(--cell-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  user-select: none;
+  transition: background 0.2s;
+}

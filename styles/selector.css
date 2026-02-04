@@ -1,0 +1,157 @@
+/* Puzzle Selector Screen */
+#puzzle-selector-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px 16px;
+}
+
+#puzzle-selector-screen[hidden] {
+  display: none;
+}
+
+.puzzle-selector-title {
+  margin: 0 0 24px 0;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.puzzle-selector-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 350px;
+  margin-top: 24px;
+}
+
+.puzzle-selector-buttons .primary-btn,
+.puzzle-selector-buttons .secondary-btn {
+  width: 100%;
+  padding: 14px 24px;
+}
+
+/* Calendar */
+.calendar {
+  width: 100%;
+  max-width: 350px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-month-year {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.calendar-nav {
+  background: transparent;
+  border: 2px solid var(--cell-border);
+  color: var(--text-color);
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.calendar-nav:hover:not(:disabled) {
+  background: var(--highlight-bg);
+  border-color: var(--highlight-border);
+}
+
+.calendar-nav:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-bottom: 8px;
+}
+
+.calendar-weekday {
+  text-align: center;
+  font-size: 12px;
+  font-weight: bold;
+  opacity: 0.6;
+  padding: 8px 0;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.calendar-day {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--cell-border);
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+.calendar-day:hover:not(:disabled):not(.calendar-day-empty) {
+  background: var(--highlight-bg);
+  border-color: var(--highlight-border);
+}
+
+.calendar-day-empty {
+  border-color: transparent;
+  cursor: default;
+}
+
+.calendar-day-today {
+  border-color: var(--highlight-border);
+  box-shadow: 0 0 0 1px var(--highlight-border);
+}
+
+.calendar-day.solved-on-day {
+  background: var(--cell-correct);
+  color: #fff;
+  border-color: var(--cell-correct);
+}
+
+.calendar-day.solved-on-day:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.calendar-day.solved-later {
+  background: var(--cell-misplaced-col);
+  color: #fff;
+  border-color: var(--cell-misplaced-col);
+}
+
+.calendar-day.solved-later:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.calendar-day.locked {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.calendar-day.locked:hover {
+  background: var(--bg-color);
+  border-color: var(--cell-border);
+}

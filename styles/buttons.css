@@ -1,0 +1,38 @@
+.primary-btn {
+  background: var(--primary-color, var(--cell-correct));
+  color: #fff;
+  border: none;
+  padding: 16px 48px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.primary-btn:hover {
+  opacity: 0.9;
+}
+
+.primary-btn:active {
+  transform: scale(0.98);
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--text-color);
+  border: 2px solid var(--cell-border);
+  padding: 14px 32px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.1s;
+}
+
+.secondary-btn:hover {
+  background: var(--highlight-bg);
+  border-color: var(--highlight-border);
+}
+
+.secondary-btn:active {
+  transform: scale(0.98);
+}

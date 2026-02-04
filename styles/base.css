@@ -1,0 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  touch-action: manipulation;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding-top: 56px;
+  background: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.3s, color 0.3s;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+/* Cell state classes - shared across board and mini-grid */
+.correct {
+  background: var(--cell-correct) !important;
+}
+
+.misplaced-both {
+  background: var(--cell-misplaced-both) !important;
+}
+
+.misplaced-row {
+  background: var(--cell-misplaced-row) !important;
+}
+
+.misplaced-col {
+  background: var(--cell-misplaced-col) !important;
+}
+
+.absent {
+  background: var(--cell-absent) !important;
+}
