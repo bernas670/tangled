@@ -1,5 +1,5 @@
-import { CellState, Mode, type LineKnowledge, type State } from "./types";
-import { SIZE } from "./constants";
+import { CellState, Mode, type LineKnowledge, type State } from "../types";
+import { SIZE } from "../constants";
 import {
   cells,
   rowMisplacedElements,

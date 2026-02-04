@@ -1,4 +1,4 @@
-import { CellState } from "./types";
+import { CellState } from "../types";
 
 const GRID_SIZE = 5;
 const LETTER_FILL_DELAY = 120;

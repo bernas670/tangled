@@ -1,0 +1,56 @@
+#game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 8px;
+}
+
+#game-container[hidden] {
+  display: none;
+}
+
+/* Completion banner */
+.completion-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 20px;
+  background: var(--cell-correct);
+  color: #fff;
+  font-weight: bold;
+  animation: slideIn 0.3s ease-out;
+}
+
+.completion-banner[hidden] {
+  display: none;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.play-next-btn {
+  background: #fff;
+  color: var(--cell-correct);
+  border: none;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.play-next-btn:hover {
+  opacity: 0.9;
+}

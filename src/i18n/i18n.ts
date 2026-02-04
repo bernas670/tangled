@@ -1,4 +1,4 @@
-import { BASE_PATH } from "./constants";
+import { BASE_PATH } from "../constants";
 
 export interface Language {
   code: string;

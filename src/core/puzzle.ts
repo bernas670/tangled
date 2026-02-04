@@ -1,13 +1,14 @@
-import { BASE_PATH } from "./constants";
-import { getCurrentLanguage } from "./i18n";
+import { BASE_PATH } from "../constants";
 
 export type Puzzle = string[][];
 
 let puzzles: Puzzle[] = [];
 let currentPuzzleIndex = 1;
+let currentLanguage = "en";
 
 export const loadPuzzles = (lang?: string): Promise<void> => {
-  const language = lang ?? getCurrentLanguage();
+  const language = lang ?? currentLanguage;
+  currentLanguage = language;
   return fetch(`${BASE_PATH}/puzzles/${language}.txt`)
     .then((response) => response.text())
     .then((text) => {
@@ -36,7 +37,7 @@ export const getPuzzleCount = (): number => puzzles.length;
 let words: Set<string> = new Set();
 
 export const loadWords = (lang?: string): Promise<void> => {
-  const language = lang ?? getCurrentLanguage();
+  const language = lang ?? currentLanguage;
   return fetch(`${BASE_PATH}/words/${language}.txt`)
     .then((response) => response.text())
     .then((text) => {

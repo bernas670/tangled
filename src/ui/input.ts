@@ -1,12 +1,12 @@
-import { CellState, Mode, type State } from "./types";
-import { SIZE } from "./constants";
-import { submitLine } from "./game";
+import { CellState, Mode, type State } from "../types";
+import { SIZE } from "../constants";
+import { submitLine } from "../core/game";
 import { render } from "./render";
 import { cells, keyboardKeys } from "./dom";
 import { shakeCells, animateCorrectLetter, animateCorrectLine, celebratePuzzleComplete } from "./animations";
-import { getCurrentPuzzleIndex } from "./puzzle";
-import { markPuzzleSolved } from "./storage";
-import { getCurrentLanguage } from "./i18n";
+import { getCurrentPuzzleIndex } from "../core/puzzle";
+import { markPuzzleSolved } from "../core/storage";
+import { getCurrentLanguage } from "../i18n";
 
 const showCompletionBanner = (): void => {
   const banner = document.getElementById("completion-banner");

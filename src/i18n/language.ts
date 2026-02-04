@@ -5,8 +5,8 @@ import {
   loadTranslations,
   t,
 } from "./i18n";
-import { setStoredLanguage } from "./storage";
-import { reloadGameData } from "./puzzle";
+import { setStoredLanguage } from "../core/storage";
+import { reloadGameData } from "../core/puzzle";
 
 let dropdown: HTMLElement | null = null;
 

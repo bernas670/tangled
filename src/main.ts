@@ -1,13 +1,16 @@
-import { state, resetState } from "./state";
-import { loadWords, loadPuzzles, setPuzzleIndex, getPuzzleCount, getCurrentPuzzleIndex } from "./puzzle";
-import { render } from "./render";
-import { setupInputHandlers } from "./input";
-import { getSolvedPuzzles, hasPlayedBefore, markAsPlayed, getStoredLanguage, runMigrations, wasSolvedOnReleaseDay, getPuzzleSolveDate } from "./storage";
-import { getCurrentLanguage } from "./i18n";
-import { startAutoPlay } from "./autoplay";
-import { loadTranslations, setCurrentLanguage, detectBrowserLanguage, t, tArray } from "./i18n";
-import { setupLanguageSelector, applyTranslations } from "./language";
-import { getTodaysPuzzleIndex, isPuzzleAccessible, DAILY_START_DATE, getPuzzleDate } from "./daily";
+import {
+  state, resetState,
+  loadWords, loadPuzzles, setPuzzleIndex, getPuzzleCount, getCurrentPuzzleIndex,
+  getSolvedPuzzles, hasPlayedBefore, markAsPlayed, getStoredLanguage, runMigrations,
+  wasSolvedOnReleaseDay, getPuzzleSolveDate,
+  getTodaysPuzzleIndex, isPuzzleAccessible, DAILY_START_DATE, getPuzzleDate,
+} from "./core";
+import { render, setupInputHandlers, startAutoPlay } from "./ui";
+import {
+  getCurrentLanguage, loadTranslations, setCurrentLanguage,
+  detectBrowserLanguage, t, tArray,
+  setupLanguageSelector, applyTranslations,
+} from "./i18n";
 
 const homepage = document.getElementById("homepage");
 const gameContainer = document.getElementById("game-container");

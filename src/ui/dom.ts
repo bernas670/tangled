@@ -1,4 +1,4 @@
-import { SIZE } from "./constants";
+import { SIZE } from "../constants";
 
 const board = document.getElementById("board")!;
 const keyboardContainer = document.getElementById("keyboard")!;
