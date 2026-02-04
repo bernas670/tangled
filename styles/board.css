@@ -1,7 +1,9 @@
 #board {
+  --cell-size: 60px;
+  --knowledge-cell-size: calc((var(--cell-size) - 10px) / 2);
   display: grid;
-  grid-template-columns: 140px repeat(5, 60px) 140px;
-  grid-template-rows: 140px repeat(5, 60px) 140px;
+  grid-template-columns: 140px repeat(5, var(--cell-size)) 140px;
+  grid-template-rows: 140px repeat(5, var(--cell-size)) 140px;
   gap: 6px;
 }
 
@@ -57,8 +59,9 @@
 }
 
 .knowledge-cell {
-  width: 22px;
-  height: 22px;
+  box-sizing: border-box;
+  width: var(--knowledge-cell-size);
+  height: var(--knowledge-cell-size);
   border: 2px solid var(--cell-border);
   display: flex;
   align-items: center;

@@ -25,8 +25,8 @@
   }
 
   #board {
-    --cell-size: min(calc((100vw - 16px - 24px) / 7 * 0.7), 50px);
-    --knowledge-size: min(calc((100vw - 16px - 24px) / 7 * 1.5), 100px);
+    --cell-size: min(calc((100vw - 16px - 24px) / 7 * 0.85), 50px);
+    --knowledge-size: min(calc((100vw - 16px - 24px) / 7 * 1.225), 100px);
     grid-template-columns: var(--knowledge-size) repeat(5, var(--cell-size)) var(--knowledge-size) !important;
     grid-template-rows: var(--knowledge-size) repeat(5, var(--cell-size)) var(--knowledge-size) !important;
     gap: 4px !important;
@@ -37,9 +37,52 @@
   }
 
   .knowledge-cell {
-    width: 18px;
-    height: 18px;
-    font-size: 11px;
+    font-size: 10px;
+  }
+
+  .knowledge {
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* Overflow fade indicators */
+  .knowledge.overflowing::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .knowledge.row-misplaced.overflowing::after {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 14px;
+    background: linear-gradient(to right, var(--bg-color), transparent);
+  }
+
+  .knowledge.row-absent.overflowing::after {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 14px;
+    background: linear-gradient(to left, var(--bg-color), transparent);
+  }
+
+  .knowledge.col-misplaced.overflowing::after {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background: linear-gradient(to bottom, var(--bg-color), transparent);
+  }
+
+  .knowledge.col-absent.overflowing::after {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background: linear-gradient(to top, var(--bg-color), transparent);
   }
 
   .tries-label {
